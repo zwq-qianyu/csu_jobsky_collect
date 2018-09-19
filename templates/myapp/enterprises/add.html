@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>图册添加表单</title>
+	<title>企业信息添加表单</title>
 </head>
 <body>
 	<center>
-		<!-- {% include "myapp/pics/header.html" %} -->
-		<h3>添加相册信息</h3>
-		<form method="post" action="{% url 'picsInsert' %}" enctype="multipart/form-data">
+		<h3>添加企业信息</h3>
+		<form method="post" action="{% url 'enterprisesInsert' %}" enctype="multipart/form-data">
 			{% csrf_token %}
-			标题：<input type="text" name="mypicname">
+			企业名称：<input type="text" name="enterprise">
 			<br><br>
-			图片：<input type="file" name="mypic" value="选择文件">
+			宣讲时间：<input type="text" name="time">
+			<br><br>
+			宣讲地点：<input type="text" name="place">
 			<br><br>
 			<input type="submit" value="添加">
 			<input type="reset" value="重置">

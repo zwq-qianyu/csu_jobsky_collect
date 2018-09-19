@@ -3,23 +3,30 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>图册修改表单</title>
+	<title>学生信息修改表单</title>
 </head>
 <body>
 	<center>
-		{% include "myapp/pics/header.html" %}
-		<h3>修改相册信息</h3>
-		<form method="post" action="{% url 'picsUpdate' %}" enctype="multipart/form-data">
-			<input type="hidden" name="id" value="{{pic.id}}">
+		{% include "myapp/students/header.html" %}
+		<h3>修改学生信息</h3>
+		<form method="post" action="{% url 'studentsUpdate' %}" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{{student.id}}">
 			{% csrf_token %}
-			标题：<input type="text" name="mypicname" value="{{pic.name}}">
+			姓  名：<input type="text" name="name" value="{{student.stu_name}}">
 			<br><br>
-			图片：<input type="file" name="mypic">
+			学  校：<input type="text" name="school" value="{{student.school}}">
+			<br><br>
+			专  业：<input type="text" name="major" value="{{student.major}}">
+			<br><br>
+			宣讲会企业：<input type="text" name="enterprise" value="{{student.enterprise}}">
+			<br><br>
+			宣讲时间：<input type="text" name="time" value="{{student.time}}">
+			<br><br>
+			宣讲地点：<input type="text" name="place" value="{{student.place}}">
 			<br><br>
 			<input type="submit" value="修改">
 			<input type="reset" value="重置">
 			<br><br>
-			<img src="/static/pics/{{pic.name}}"/>
 		</form>
 	</center>
 </body>

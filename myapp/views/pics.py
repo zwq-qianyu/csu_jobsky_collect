@@ -36,13 +36,13 @@ def picsInsert(request):
         return HttpResponse("没有上传图片信息！")
     try:
         pic = Pics()
-        pic.name = request.POST['mypicname']+"."+myfile.name.split('.').pop().lower()  #图片名称    
+        pic.name = request.POST['mypicname']+"."+myfile.name.split('.').pop().lower()  #图片名称
         pic.save()
         context = {"info":"添加成功！"}
     except Exception as e:
         context = {"info":"添加失败！"}
     #新建一个文件并打开存入图片
-    dest = open("./static/pics/"+pic.name,"wb+")     
+    dest = open("./static/pics/"+pic.name,"wb+")
     for chunk in myfile.chunks():   #分块写入
         dest.write(chunk)
     dest.close()
@@ -51,7 +51,7 @@ def picsInsert(request):
     im = Image.open("./static/pics/"+pic.name)
     # 缩放到75*75(缩放后的宽高比例不变):
     im.thumbnail((75, 75))
-    # 把缩放后的图像用原格式保存: 
+    # 把缩放后的图像用原格式保存:
     im.save("./static/pics/"+pic.name,None)
 
     return render(request,"./myapp/pics/info.html",context)
@@ -99,7 +99,7 @@ def picsUpdate(request):
         pic.save()
 
         #新建一个文件并打开存入图片
-        dest = open("./static/pics/"+pic.name,"wb+")     
+        dest = open("./static/pics/"+pic.name,"wb+")
         for chunk in myfile1.chunks():   #分块写入
             dest.write(chunk)
         dest.close()
@@ -108,7 +108,7 @@ def picsUpdate(request):
         im = Image.open("./static/pics/"+pic.name)
         # 缩放到75*75(缩放后的宽高比例不变):
         im.thumbnail((75, 75))
-        # 把缩放后的图像用原格式保存: 
+        # 把缩放后的图像用原格式保存:
         im.save("./static/pics/"+pic.name,None)
         context = {"info":"修改成功！"}
 
@@ -116,4 +116,3 @@ def picsUpdate(request):
         print(e)
         context = {"info":"修改失败！"}
     return render(request,"myapp/pics/info.html",context)
-

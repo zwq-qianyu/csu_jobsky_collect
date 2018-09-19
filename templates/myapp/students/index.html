@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>相册信息浏览</title>
+	<title>学生信息浏览</title>
 	<style type="text/css">
 		table{text-align: center;border-collapse: collapse;}
 		table,th,td{border: 1px solid black;}
@@ -11,26 +11,29 @@
 </head>
 <body>
 	<center>
-			{% include "myapp/pics/header.html" %}
-			<h3>浏览相册图片信息</h3>
+			{% include "myapp/students/header.html" %}
+			<h3>浏览学生信息</h3>
 			<table width="800px">
 				<tr>
-					<th>id号</th>
-					<th>标题</th>
-					<th>图片</th>
-					<th>添加(修改)时间</th>
-					<th>操作</th>
+					<th>学生姓名</th>
+					<th>学  校</th>
+					<th>专  业</th>
+					<th>宣讲会企业名称</th>
+					<th>宣讲时间</th>
+					<th>宣讲地点</th>
 				</tr>
-				{% for pic in picslist %}
+				{% for student in studentslist %}
 					<tr>
-						<td>{{pic.id}}</td>
-						<td>{{pic.name}}</td>
-						<td><img src="/static/pics/{{pic.name}}"/></td>
-						<td>{{pic.addtime|date:'Y-m-d  h:i:s'}}</td>
+						<td>{{student.stu_name}}</td>
+						<td>{{student.school}}</td>
+						<td>{{student.major}}</td>
+						<td>{{student.enterprise}}</td>
+						<td>{{student.time|date:'Y-m-d  h:i:s'}}</td>
+						<td>{{student.place}}</td>
 						<td>
-							<a href="{% url 'picsEdit' pic.id %}">编辑</a>
-							<a href="javascript:doDel('{% url 'picsDelete' pic.id %}');">删除</a>     
-							<!--    这里{% url 'picsDelete' pic.id %}两端一定要加上引号！！！！！  --> 
+							<a href="{% url 'studentsEdit' student.id %}">编辑</a>
+							<a href="javascript:doDel('{% url 'studentsDelete' student.id %}');">删除</a>
+							<!--    这里{% url 'picsDelete' pic.id %}两端一定要加上引号！！！！！  -->
 						</td>
 					</tr>
 				{% endfor %}
@@ -40,7 +43,7 @@
                 {% if i == pIndex %}
                     <b style="color:red">{{i}}</b>
                 {% else %}
-                    <a href="{% url 'pics' i %}">{{i}}</a>
+                    <a href="{% url 'students' i %}">{{i}}</a>
                 {% endif %}
             {% endfor %}
 	</center>
