@@ -9,4 +9,21 @@ class Pics(models.Model):
 	class Meta:
 		db_table = "pics"
 		
-			
+class Enterprise(models.Model):
+	enterprise = models.CharField(max_length=200)
+	time = models.DateTimeField()
+	place = models.CharField(max_length=200)
+	
+	class Meta:
+		db_table = "enterprise"
+
+class Student(models.Model):
+	stu_name = models.CharField(max_length=60)
+	school = models.CharField(max_length=200)
+	major = models.CharField(max_length=200)
+	enterprise = models.CharField(max_length=200)
+	time = models.DateTimeField()
+	place = models.CharField(max_length=200)
+	
+	class Meta:
+		db_table = "student"				

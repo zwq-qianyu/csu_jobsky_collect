@@ -6,7 +6,7 @@
 </head>
 <body>
 	<center>
-		{% include "myapp/pics/header.html" %}
+		<!-- {% include "myapp/pics/header.html" %} -->
 		<h3>添加相册信息</h3>
 		<form method="post" action="{% url 'picsInsert' %}" enctype="multipart/form-data">
 			{% csrf_token %}
