@@ -11,7 +11,7 @@ def index(request):
 
 
 def enterprises(request,pIndex):
-    #获取相册信息
+    #获取企业信息
     lists = Enterprises.objects.all()
     #分页封装信息
     p = Paginator(lists,5)
@@ -46,7 +46,7 @@ def enterprisesInsert(request):
 
 def enterprisesDelete(request,uid):
     try:
-        #找到对应的图片对象
+        #找到对应的企业对象
         ob = Enterprises.objects.get(id=uid)
         ob.delete()
         context = {"info":"删除成功！"}

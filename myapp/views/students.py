@@ -11,7 +11,7 @@ def index(request):
 
 
 def students(request,pIndex):
-    #获取相册信息
+    #获取学生信息
     lists = Students.objects.all()
     #分页封装信息
     p = Paginator(lists,5)
@@ -49,7 +49,7 @@ def studentsInsert(request):
 
 def studentsDelete(request,uid):
     try:
-        #找到对应的图片对象
+        #找到对应的学生对象
         ob = Students.objects.get(id=uid)
         ob.delete()
         context = {"info":"删除成功！"}
