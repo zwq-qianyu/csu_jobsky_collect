@@ -12,17 +12,18 @@
 		<form method="post" action="{% url 'studentsUpdate' %}" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="{{student.id}}">
 			{% csrf_token %}
-			姓  名：<input type="text" name="name" value="{{student.stu_name}}">
+			姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：<input type="text" name="name" value="{{student.stu_name}}">
 			<br><br>
-			学  校：<input type="text" name="school" value="{{student.school}}">
+			学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：<input type="text" name="school" value="{{student.school}}">
 			<br><br>
-			专  业：<input type="text" name="major" value="{{student.major}}">
+			专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：<input type="text" name="major" value="{{student.major}}">
 			<br><br>
 			宣讲会企业：<input type="text" name="enterprise" value="{{student.enterprise}}">
 			<br><br>
-			宣讲时间：<input type="text" name="time" value="{{student.time}}">
-			<br><br>
 			宣讲地点：<input type="text" name="place" value="{{student.place}}">
+			<br><br>
+			宣讲时间：<input type="text" name="time" value="{{student.time|date:'Y-m-d h:i'}}">
+			<br>格式：2018-09-18 14:30
 			<br><br>
 			<input type="submit" value="修改">
 			<input type="reset" value="重置">

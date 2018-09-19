@@ -21,6 +21,7 @@
 					<th>宣讲会企业名称</th>
 					<th>宣讲时间</th>
 					<th>宣讲地点</th>
+					<th>操  作</th>
 				</tr>
 				{% for student in studentslist %}
 					<tr>
@@ -28,12 +29,12 @@
 						<td>{{student.school}}</td>
 						<td>{{student.major}}</td>
 						<td>{{student.enterprise}}</td>
-						<td>{{student.time|date:'Y-m-d  h:i:s'}}</td>
+						<td>{{student.time|date:'Y-m-d  h:i'}}</td>
 						<td>{{student.place}}</td>
 						<td>
 							<a href="{% url 'studentsEdit' student.id %}">编辑</a>
 							<a href="javascript:doDel('{% url 'studentsDelete' student.id %}');">删除</a>
-							<!--    这里{% url 'picsDelete' pic.id %}两端一定要加上引号！！！！！  -->
+							<!--    这里{% url 'studentsDelete' student.id %}两端一定要加上引号！！！！！  -->
 						</td>
 					</tr>
 				{% endfor %}

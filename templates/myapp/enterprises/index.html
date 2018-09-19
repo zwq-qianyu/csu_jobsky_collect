@@ -23,12 +23,12 @@
 				{% for enterprise in enterpriseslist %}
 					<tr>
 						<td>{{enterprise.name}}</td>
-						<td>{{enterprise.time|date:'Y-m-d  h:i:s'}}</td>
+						<td>{{enterprise.time|date:'Y-m-d  h:i'}}</td>
 						<td>{{enterprise.place}}</td>
 						<td>
 							<a href="{% url 'enterprisesEdit' enterprise.id %}">编辑</a>
 							<a href="javascript:doDel('{% url 'enterprisesDelete' enterprise.id %}');">删除</a>
-							<!--    这里{% url 'picsDelete' pic.id %}两端一定要加上引号！！！！！  -->
+							<!--    这里{% url 'enterprisesDelete' enterprise.id %}两端一定要加上引号！！！！！  -->
 						</td>
 					</tr>
 				{% endfor %}

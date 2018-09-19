@@ -32,7 +32,7 @@ def studentsInsert(request):
     '''执行学生信息的上传插入'''
     try:
         student = Students()
-        student.name = request.POST['name']
+        student.stu_name = request.POST['name']
         student.school = request.POST['school']
         student.major = request.POST['major']
         student.enterprise = request.POST['enterprise']
@@ -41,6 +41,7 @@ def studentsInsert(request):
         student.save()
         context = {"info":"添加成功！"}
     except Exception as e:
+        print(e)
         context = {"info":"添加失败！"}
 
     return render(request,"./myapp/students/info.html",context)
@@ -53,6 +54,7 @@ def studentsDelete(request,uid):
         ob.delete()
         context = {"info":"删除成功！"}
     except Exception as e:
+        print(e)
         context = {"info":"删除失败！"}
     return render(request,"./myapp/students/info.html",context)
 
@@ -72,7 +74,7 @@ def studentsUpdate(request):
     print(request.POST['id'])
     try:
         student = Students.objects.get(id=request.POST['id'])
-        student.name = request.POST['name']
+        student.stu_name = request.POST['name']
         student.school = request.POST['school']
         student.major = request.POST['major']
         student.enterprise = request.POST['enterprise']

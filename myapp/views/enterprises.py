@@ -38,6 +38,7 @@ def enterprisesInsert(request):
         enterprise.save()
         context = {"info":"添加成功！"}
     except Exception as e:
+        print(e)
         context = {"info":"添加失败！"}
 
     return render(request,"./myapp/enterprises/info.html",context)
