@@ -5,16 +5,22 @@
 	<meta charset="UTF-8">
 	<title>学生信息浏览</title>
 	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		table{text-align: center;border-collapse: collapse;}
 		table,th,td{border: 1px solid black;}
+		td button{
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
 	</style>
 </head>
 <body>
 	<center>
 			{% include "myapp/students/header.html" %}
 			<h3>浏览学生信息</h3>
-			<table width="800px">
+			<table width="80%;">
 				<tr>
 					<th>学生姓名</th>
 					<th>学  校</th>
@@ -33,8 +39,8 @@
 						<td>{{student.time|date:'Y-m-d  h:i'}}</td>
 						<td>{{student.place}}</td>
 						<td>
-							<a href="{% url 'studentsEdit' student.id %}">编辑</a>
-							<a href="javascript:doDel('{% url 'studentsDelete' student.id %}');">删除</a>
+							<a href="{% url 'studentsEdit' student.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
+							<a href="javascript:doDel('{% url 'studentsDelete' student.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
 							<!--    这里{% url 'studentsDelete' student.id %}两端一定要加上引号！！！！！  -->
 						</td>
 					</tr>

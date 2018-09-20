@@ -5,30 +5,84 @@
 	<meta charset="UTF-8">
 	<title>学生信息修改表单</title>
 	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<style media="screen">
+		form{
+			width: 40%;
+		}
+		h3{
+			margin-top: 50px;
+			margin-bottom: 100px;
+		}
+		.btn{
+			margin: 30px;
+		}
+	</style>
 </head>
 <body>
 	<center>
 		{% include "myapp/students/header.html" %}
 		<h3>修改学生信息</h3>
 		<form method="post" action="{% url 'studentsUpdate' %}" enctype="multipart/form-data">
-			<input type="hidden" name="id" value="{{student.id}}">
-			{% csrf_token %}
-			姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：<input type="text" name="name" value="{{student.stu_name}}">
-			<br><br>
-			学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：<input type="text" name="school" value="{{student.school}}">
-			<br><br>
-			专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：<input type="text" name="major" value="{{student.major}}">
-			<br><br>
-			宣讲会企业：<input type="text" name="enterprise" value="{{student.enterprise}}">
-			<br><br>
-			宣讲地点：<input type="text" name="place" value="{{student.place}}">
-			<br><br>
-			宣讲时间：<input type="text" name="time" value="{{student.time|date:'Y-m-d h:i'}}">
-			<br>格式：2018-09-18 14:30
-			<br><br>
-			<input type="submit" value="修改">
-			<input type="reset" value="重置">
-			<br><br>
+			<div class="form-group row">
+		    <label for="name" class="col-sm-3 col-form-label">姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" value="{{student.stu_name}}">
+				</div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="school" class="col-sm-3 col-form-label">学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="school" class="form-control" id="school" value="{{student.school}}">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="major" class="col-sm-3 col-form-label">专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="major" class="form-control" id="major" value="{{student.major}}">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="enterprise" class="col-sm-3 col-form-label">宣讲企业：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="enterprise" class="form-control" id="enterprise" value="{{student.enterprise}}">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="place" class="col-sm-3 col-form-label">宣讲地点：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="place" class="form-control" id="place" value="{{student.place}}">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="time" class="form-control" id="time" value="{{student.time}}">
+					<small id="timeHelp" class="form-text text-muted">格式：2018-09-18 14:30</small>
+				</div>
+		  </div>
+			<!-- <div class="form-row">
+		    <div class="form-group col-md-6">
+		      <label for="inputCity">City</label>
+		      <input type="text" class="form-control" id="inputCity">
+		    </div>
+		    <div class="form-group col-md-4">
+		      <label for="inputState">State</label>
+		      <select id="inputState" class="form-control">
+		        <option selected>Choose...</option>
+		        <option>...</option>
+		      </select>
+		    </div>
+		    <div class="form-group col-md-2">
+		      <label for="inputZip">Zip</label>
+		      <input type="text" class="form-control" id="inputZip">
+		    </div>
+		  </div> -->
+
+			<input type="submit" value="确认" class="btn btn-primary">
+			<input type="reset" value="重置" class="btn btn-primary">
+			<br>
 		</form>
 	</center>
 </body>

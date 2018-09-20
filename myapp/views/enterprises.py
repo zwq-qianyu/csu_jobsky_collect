@@ -38,6 +38,7 @@ def enterprisesInsert(request):
         enterprise.save()
         context = {"info":"添加成功！"}
     except Exception as e:
+        print("插入失败")
         print(e)
         context = {"info":"添加失败！"}
 
