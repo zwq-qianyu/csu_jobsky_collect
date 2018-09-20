@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主页</title>
+	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
+	<style type="text/css">
+		a{text-decoration: none;}
+		#x2{
+			display: flex;
+			justify-content: flex-end;
+			color: rgb(10,255,180);
+			position: relative;
+			margin-right: 15%;
+		}
+		#choose {
+			display: flex;
+			justify-content: center;
+		}
+		#choose h2 {
+			margin-left: 50px;
+			margin-right: 50px;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<br><br><br><br><br>
+		<h1>中南大学就业信息办</h1>
+		<h1 id=x2>----浅鱼工作室</h1>
+		<br>
+		<div id="choose">
+			<h2><a href="{% url 'enterprisesAdd' %}">我是企业</a></h2>
+			<h2><a href="{% url 'studentsAdd' %}">我是学生</a></h2>
+		</div>
+		<h2><a href="{% url 'students' 1 %}">管理员</a></h2>
+	</center>
+</body>
+</html>
