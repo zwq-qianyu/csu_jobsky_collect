@@ -26,19 +26,19 @@
 					<th>企业名称</th>
 					<th>宣讲时间</th>
 					<th>宣讲场地</th>
-					<th>操  作</th>
+					<!-- <th>操  作</th> -->
 				</tr>
 				{% for enterprise in enterpriseslist %}
 					<tr>
 						<td>{{enterprise.enterprise}}</td>
 						<td>{{enterprise.time|date:'Y-m-d  h:i'}}</td>
 						<td>{{enterprise.place}}</td>
-						<td>
+						<!-- <td>
 							<a href="{% url 'enterprisesEdit' enterprise.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
 
 							<a href="javascript:doDel('{% url 'enterprisesDelete' enterprise.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
-							<!--    这里{% url 'enterprisesDelete' enterprise.id %}两端一定要加上引号！！！！！  -->
-						</td>
+
+						</td> -->
 					</tr>
 				{% endfor %}
 			</table>
