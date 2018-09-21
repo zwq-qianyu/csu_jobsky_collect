@@ -36,7 +36,8 @@ def studentsInsert(request):
         student.school = request.POST['school']
         student.major = request.POST['major']
         student.enterprise = request.POST['enterprise']
-        student.time = request.POST['time']
+        student.start_time = request.POST['start_time']
+        student.end_time = request.POST['end_time']
         student.place = request.POST['place']
         student.save()
         context = {"info":"添加成功！"}
@@ -78,7 +79,8 @@ def studentsUpdate(request):
         student.school = request.POST['school']
         student.major = request.POST['major']
         student.enterprise = request.POST['enterprise']
-        student.time = request.POST['time']
+        student.start_time = request.POST['start_time']
+        student.end_time = request.POST['end_time']
         student.place = request.POST['place']
         student.save()
         context = {"info":"修改成功！"}

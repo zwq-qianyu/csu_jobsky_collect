@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<title>企业信息浏览</title>
 	<meta name="viewport" content="width=device-width">
-	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 	<style type="text/css">
 		table{text-align: center;border-collapse: collapse;}
 		table,th,td{border: 1px solid black;}
@@ -31,7 +31,7 @@
 				{% for enterprise in enterpriseslist %}
 					<tr>
 						<td>{{enterprise.enterprise}}</td>
-						<td>{{enterprise.time|date:'Y-m-d  h:i'}}</td>
+						<td>{{enterprise.start_time|date:'Y-m-d  h:i'}} - {{enterprise.end_time|date:'Y-m-d  h:i'}}</td>
 						<td>{{enterprise.place}}</td>
 						<!-- <td>
 							<a href="{% url 'enterprisesEdit' enterprise.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>

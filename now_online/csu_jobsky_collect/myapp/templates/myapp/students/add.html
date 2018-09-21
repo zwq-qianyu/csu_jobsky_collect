@@ -8,9 +8,13 @@
 	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../static/css/all_page.css">
 	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- 时间选择器 css -->
+	<link rel="stylesheet" href="../../static/css/all_page.css">
+	<link rel="stylesheet" href="../../static/css/datepicker.css">
+	<!-- 时间选择器 css 结束 -->
 	<style media="screen">
 		.form{
-			width: 70%;
+			width: 60%;
 		}
 		h3{
 			margin-top: 50px;
@@ -60,7 +64,12 @@
 			<div class="form-group row">
 		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
 				<div class="col-sm-9">
-		    	<input type="text" name="time" class="form-control" id="time" placeholder="格式：2018-09-18 14:30">
+					<div class="c-datepicker-date-editor J-datepickerTime-range mt10" style="width: 100%;">
+						<i class="c-datepicker-range__icon kxiconfont icon-clock" style="float: left;"></i>
+						<input placeholder="开始日期" name="start_time" class="c-datepicker-data-input" value="">
+						<span class="c-datepicker-range-separator">-</span>
+						<input placeholder="结束日期" name="end_time" class="c-datepicker-data-input" value="">
+					</div>
 				</div>
 		  </div>
 			<!-- <div class="form-row">
@@ -105,5 +114,27 @@
 			<input type="reset" value="重置">
 		</form> -->
 	</center>
+	<!-- 时间选择器 js -->
+	<script src="../../static/js/plugins/jquery.js"></script>
+  <script src="../../static/js/plugins/moment.min.js"></script>
+  <!-- <script src="../../static/js/datapicker-separate/api.js"></script>
+  <script src="../../static/js/datapicker-separate/year.js"></script>
+  <script src="../../static/js/datapicker-separate/month.js"></script>
+  <script src="../../static/js/datapicker-separate/day.js"></script>
+  <script src="../../static/js/datapicker-separate/time.js"></script>
+  <script src="../../static/js/datapicker-separate/datepicker.js"></script> -->
+
+  <!-- <script src="../../static/js/datepicker.all.js"></script> -->
+  <script src="../../static/js/datepicker.all.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		//十分年月日范围
+		$('.J-datepickerTime-range').datePicker({
+			format: 'YYYY-MM-DD HH:mm',
+			isRange: true
+		});
+	});
+	</script>
+	<!-- 时间选择器 js 结束 -->
 </body>
 </html>

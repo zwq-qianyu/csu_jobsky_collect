@@ -6,11 +6,11 @@
 	<title>企业信息修改表单</title>
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
-	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 	<style media="screen">
 		form{
-			width: 40%;
+			width: 60%;
 		}
 		h3{
 			margin-top: 50px;
@@ -43,7 +43,12 @@
 			<div class="form-group row">
 		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
 				<div class="col-sm-9">
-		    	<input type="text" name="time" class="form-control" id="time" value="{{enterprise.time|date:'Y-m-d h:i'}}">
+					<div class="c-datepicker-date-editor J-datepickerTime-range mt10" style="width: 100%;">
+						<i class="c-datepicker-range__icon kxiconfont icon-clock" style="float: left;"></i>
+						<input name="start_time" class="c-datepicker-data-input" value="{{enterprise.start_time|date:'Y-m-d  h:i'}}">
+						<span class="c-datepicker-range-separator">-</span>
+						<input name="end_time" class="c-datepicker-data-input" value="{{enterprise.end_time|date:'Y-m-d  h:i'}}">
+					</div>
 				</div>
 		  </div>
 			<!-- <div class="form-row">
