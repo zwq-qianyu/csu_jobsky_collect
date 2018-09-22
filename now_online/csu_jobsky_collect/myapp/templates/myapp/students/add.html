@@ -8,10 +8,11 @@
 	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="../../static/css/all_page.css">
 	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<!-- 时间选择器 css -->
-	<link rel="stylesheet" href="../../static/css/all_page.css">
-	<link rel="stylesheet" href="../../static/css/datepicker.css">
-	<!-- 时间选择器 css 结束 -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
 	<style media="screen">
 		.form{
 			width: 60%;
@@ -64,77 +65,19 @@
 			<div class="form-group row">
 		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
 				<div class="col-sm-9">
-					<div class="c-datepicker-date-editor J-datepickerTime-range mt10" style="width: 100%;">
-						<i class="c-datepicker-range__icon kxiconfont icon-clock" style="float: left;"></i>
-						<input placeholder="开始日期" name="start_time" class="c-datepicker-data-input" value="">
-						<span class="c-datepicker-range-separator">-</span>
-						<input placeholder="结束日期" name="end_time" class="c-datepicker-data-input" value="">
-					</div>
+					<input class="flatpickr mycalendar" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" > -
+					<input class="flatpickr mycalendar" name="end_time" data-enable-time="true" data-time_24hr="true" placeholder="结束日期" >
 				</div>
 		  </div>
-			<!-- <div class="form-row">
-		    <div class="form-group col-md-6">
-		      <label for="inputCity">City</label>
-		      <input type="text" class="form-control" id="inputCity">
-		    </div>
-		    <div class="form-group col-md-4">
-		      <label for="inputState">State</label>
-		      <select id="inputState" class="form-control">
-		        <option selected>Choose...</option>
-		        <option>...</option>
-		      </select>
-		    </div>
-		    <div class="form-group col-md-2">
-		      <label for="inputZip">Zip</label>
-		      <input type="text" class="form-control" id="inputZip">
-		    </div>
-		  </div> -->
-
 			<input type="submit" value="确认" class="btn btn-primary">
 			<input type="reset" value="重置" class="btn btn-primary">
 			<br>
 			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your info with anyone else.</small> -->
 		</form>
-		<!-- <form method="post" action="{% url 'studentsInsert' %}" enctype="multipart/form-data">
-			{% csrf_token %}
-			姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：<input type="text" name="name">
-			<br><br>
-			学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：<input type="text" name="school">
-			<br><br>
-			专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：<input type="text" name="major">
-			<br><br>
-			宣讲企业：<input type="text" name="enterprise">
-			<br><br>
-			宣讲地点：<input type="text" name="place">
-			<br><br>
-			宣讲时间：<input type="text" name="time">
-			<br>格式：2018-09-18 14:30
-			<br><br>
-			<input type="submit" value="确认">
-			<input type="reset" value="重置">
-		</form> -->
 	</center>
-	<!-- 时间选择器 js -->
-	<script src="../../static/js/plugins/jquery.js"></script>
-  <script src="../../static/js/plugins/moment.min.js"></script>
-  <!-- <script src="../../static/js/datapicker-separate/api.js"></script>
-  <script src="../../static/js/datapicker-separate/year.js"></script>
-  <script src="../../static/js/datapicker-separate/month.js"></script>
-  <script src="../../static/js/datapicker-separate/day.js"></script>
-  <script src="../../static/js/datapicker-separate/time.js"></script>
-  <script src="../../static/js/datapicker-separate/datepicker.js"></script> -->
-
-  <!-- <script src="../../static/js/datepicker.all.js"></script> -->
-  <script src="../../static/js/datepicker.all.min.js"></script>
+	<!-- 初始化  日期时间插件 flatpickr.js -->
 	<script type="text/javascript">
-	$(function(){
-		//十分年月日范围
-		$('.J-datepickerTime-range').datePicker({
-			format: 'YYYY-MM-DD HH:mm',
-			isRange: true
-		});
-	});
+		$(".mycalendar").flatpickr();
 	</script>
-	<!-- 时间选择器 js 结束 -->
 </body>
 </html>
