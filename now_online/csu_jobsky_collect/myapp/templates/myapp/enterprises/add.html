@@ -24,6 +24,9 @@
 		.btn{
 			margin: 25px;
 		}
+		#mycalendar{
+			line-height: 20px;
+		}
 	</style>
 </head>
 <body class="all_bgcolor">
@@ -46,8 +49,16 @@
 			<div class="form-group row">
 		    <label for="time" class="col-sm-4 col-form-label">宣讲时间：</label>
 				<div class="col-sm-8">
-							<input class="flatpickr mycalendar" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" > -
-		          <input class="flatpickr mycalendar" name="end_time" data-enable-time="true" data-time_24hr="true" placeholder="结束日期" >
+					<!-- <div class="form-row">
+				    <div class="col">
+				      <input class="flatpickr mycalendar form-control" id="mycalendar" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" > -
+				    </div>
+				    <div class="col">
+				      <input class="flatpickr mycalendar form-control" name="end_time" data-enable-time="true" data-time_24hr="true" placeholder="结束日期" >
+				    </div>
+				  </div> -->
+					<input class="flatpickr mycalendar form-control" id="mycalendar" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" > ——
+					<input class="flatpickr mycalendar form-control" name="end_time" data-enable-time="true" data-time_24hr="true" placeholder="结束日期" >
 				</div>
 		  </div>
 			<input type="submit" value="确认" class="btn btn-primary">
