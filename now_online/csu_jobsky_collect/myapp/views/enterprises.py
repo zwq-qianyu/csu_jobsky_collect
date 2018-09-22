@@ -34,7 +34,6 @@ def enterprisesInsert(request):
         enterprise = Enterprises()
         enterprise.enterprise = request.POST['enterprise']
         enterprise.start_time = request.POST['start_time']
-        enterprise.end_time = request.POST['end_time']
         enterprise.place = request.POST['place']
         enterprise.save()
         context = {"info":"添加成功！"}
@@ -74,7 +73,6 @@ def enterprisesUpdate(request):
         enterprise = Enterprises.objects.get(id=request.POST['id'])
         enterprise.enterprise = request.POST['enterprise']  #图片名称
         enterprise.start_time = request.POST['start_time']
-        enterprise.end_time = request.POST['end_time']
         enterprise.place = request.POST['place']
         enterprise.save()
         context = {"info":"修改成功！"}

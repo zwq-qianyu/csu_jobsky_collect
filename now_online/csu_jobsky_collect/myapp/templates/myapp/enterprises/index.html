@@ -31,7 +31,7 @@
 				{% for enterprise in enterpriseslist %}
 					<tr>
 						<td>{{enterprise.enterprise}}</td>
-						<td>{{enterprise.start_time|date:'Y-m-d  h:i'}} - {{enterprise.end_time|date:'Y-m-d  h:i'}}</td>
+						<td>{{enterprise.start_time|date:'Y-m-d  h:i'}}</td>
 						<td>{{enterprise.place}}</td>
 						<!-- <td>
 							<a href="{% url 'enterprisesEdit' enterprise.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>

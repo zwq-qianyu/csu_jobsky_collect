@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'csu_jobsky_collect',
         'USER': 'root',
-        'PASSWORD': '1999.04.25',
+        'PASSWORD': '990425',
         'HOST': 'localhost',
         'PORT': '3306',
     }
