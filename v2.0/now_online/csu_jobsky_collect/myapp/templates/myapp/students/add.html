@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>学生信息添加表单</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../static/css/all_page.css">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<style media="screen">
+		.form{
+			width: 70%;
+		}
+		h3{
+			margin-top: 50px;
+			margin-bottom: 60px;
+		}
+		.btn{
+			margin: 25px;
+		}
+	</style>
+</head>
+<body class="all_bgcolor">
+	<center>
+		<h3>添加学生信息</h3>
+
+		<form method="post" action="{% url 'studentsInsert' %}" enctype="multipart/form-data" class="form">
+			{% csrf_token %}
+		  <div class="form-group row">
+		    <label for="name" class="col-sm-3 col-form-label">姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+				</div>
+		  </div>
+		  <div class="form-group row">
+		    <label for="school" class="col-sm-3 col-form-label">学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="school" class="form-control" id="school" placeholder="学  校">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="major" class="col-sm-3 col-form-label">专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="major" class="form-control" id="major" placeholder="专  业">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="enterprise" class="col-sm-3 col-form-label">宣讲企业：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="enterprise" class="form-control" id="enterprise" placeholder="宣讲企业">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="place" class="col-sm-3 col-form-label">宣讲地点：</label>
+				<div class="col-sm-9">
+		    	<input type="text" name="place" class="form-control" id="place" placeholder="宣讲地点">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
+				<div class="col-sm-9">
+					<input class="flatpickr mycalendar form-control" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" >
+				</div>
+		  </div>
+			<input type="submit" value="确认" class="btn btn-primary">
+			<input type="reset" value="重置" class="btn btn-primary">
+			<br>
+			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your info with anyone else.</small> -->
+		</form>
+	</center>
+	<!-- 初始化  日期时间插件 flatpickr.js -->
+	<script type="text/javascript">
+		$(".mycalendar").flatpickr();
+	</script>
+</body>
+</html>
