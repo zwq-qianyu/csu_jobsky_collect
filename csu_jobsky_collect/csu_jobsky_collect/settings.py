@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'myadmin',
+    'web',
+    'common',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'common.loginmiddleware.LoginMiddleware',
 ]
 
 ROOT_URLCONF = 'csu_jobsky_collect.urls'
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'csu_jobsky_collect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'myapp/templates')],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'csu_jobsky_collect',
         'USER': 'root',
-        'PASSWORD': '990425',
+        'PASSWORD': '1999.04.25',
         'HOST': 'localhost',
         'PORT': '3306',
     }
