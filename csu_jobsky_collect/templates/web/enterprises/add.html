@@ -1,0 +1,56 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>企业信息添加表单</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<style media="screen">
+		.form{
+			width: 70%;
+		}
+		h3{
+			margin-top: 50px;
+			margin-bottom: 60px;
+		}
+		.btn{
+			margin: 25px;
+		}
+	</style>
+</head>
+<body class="all_bgcolor">
+	<center>
+		<h3>添加企业信息</h3>
+		<form method="post" action="{% url 'enterprisesInsert' %}" enctype="multipart/form-data" class="form">
+			{% csrf_token %}
+			<div class="form-group row">
+		    <label for="contacts" class="col-sm-4 col-form-label">联系人：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="contacts" class="form-control" id="contacts" placeholder="联系人">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="phone" class="col-sm-4 col-form-label">联系方式：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="phone" class="form-control" id="phone" placeholder="联系方式">
+				</div>
+		  </div>
+			<input type="submit" value="确认" class="btn btn-primary">
+			<input type="reset" value="重置" class="btn btn-primary">
+			<br>
+		</form>
+	</center>
+	<!-- 初始化  日期时间插件 flatpickr.js -->
+	<script type="text/javascript">
+		$(".mycalendar").flatpickr();
+	</script>
+</body>
+</html>
