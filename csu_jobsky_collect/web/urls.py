@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^volunteers/doresetpass$', volunteers.doresetpass,name='volunteers_doresetpass'), #执行重置密码
 
     # 志愿者与招聘会信息管理路由
-    url(r'^sessions/(?P<pIndex>[0-9]+)$', students.students, name="sessions"),		#浏览招聘会信息、数据分页
+    url(r'^sessions/(?P<pIndex>[0-9]+)$', sessions.sessions, name="sessions"),		#浏览招聘会信息、数据分页
     url(r'^sessions/add$', sessions.sessionsAdd, name="ssessionsAdd"),				#加载添加表单
     url(r'^sessions/insert$', sessions.sessionsInsert, name="sessionsInsert"),      #执行发布（添加）
     url(r'^sessions/delete/(?P<sid>[0-9]+)$', sessions.sessionsDelete, name="sessionsDelete"),	#删除学生信息

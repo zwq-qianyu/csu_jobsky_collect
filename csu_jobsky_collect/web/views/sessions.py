@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
-from common.models import Sessions
+from common.models import Sessions,Enterprises
 import os
 
 # Create your views here.
@@ -13,6 +13,15 @@ def index(request):
 def sessions(request,pIndex):
     #获取招聘会信息
     lists = Sessions.objects.all()
+    #遍历订单信息，查询对应的详情信息
+    for se in lists:
+        enlist = Enterprises.objects.filter(session_id=se.id)
+        #遍历订单详情，并且获取对应的商品信息（图片）
+        # for og in enlist:
+        #     og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
+        se.detaillist = enlist
+
+    # context['sessionslist'] = lists
     #分页封装信息
     p = Paginator(lists,10)
     if pIndex == "":

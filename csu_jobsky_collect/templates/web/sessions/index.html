@@ -4,9 +4,21 @@
 {% block mylink %}
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
-  <style type="text/css">
-      div label{font-size: 20px;line-height: 40px;}
+  <style media="screen">
+    .btn {
+      margin-left: 20px;
+      margin-right: 0px;
+    }
   </style>
+  <!-- js样式  -->
+	<script type="text/javascript">
+		function doDel(url){
+			if(confirm("确定删除吗？")){
+				//网页跳转
+				window.location = url
+			}
+		}
+	</script>
 {% endblock %}
 
 {% block mainbody %}
@@ -23,7 +35,7 @@
 
     <div class="main clearfix">
         <!-- 左侧导航 -->
-        <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
+        <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm span3">
             <div class="nav-main">
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
                 <a href="{% url 'volunteers_sessions' %}" class="ml " >企业信息</a>
@@ -40,30 +52,83 @@
         </div><!-- 左侧导航 E-->
 
         <!-- 右侧内容展示 -->
-        <div class="span10" style="margin-left: 300px;">
+        <div class="span9">
             <!-- 主体开始 -->
-            <hr>
-            <table>
-            	<thead>
-								<th>序号</th>
-								<th>志愿者</th>
-								<th>企业</th>
-								<th>地点</th>
-								<th>时间</th>
-								<th>联系人</th>
-								<th>联系方式</th>
-            	</thead>
-							<tbody>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tbody>
+            <h2>
+                所有招聘会浏览
+            </h2>
+            <br>
+            <form class="form-inline" action="{% url 'sessions' 1 %}" method="get">
+              <label>关键字：</label>
+              <input type="text" name="keyword" value="{{request.GET.keyword}}" class="form-control input-small" placeholder="商品名称">
+              <button type="submit" class="btn btn-default">搜索</button>
+              <a href="{% url 'sessions' 1 %}" class="btn btn-default" role="button">全部</a>
+            </form>
+            <br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>志愿者</th>
+                    <th>企业</th>
+                    <th>地点</th>
+                    <th>时间</th>
+                    <th>联系人</th>
+                    <th>联系方式</th>
+                    <!-- <th>操作</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for session in sessionslist %}
+                    <tr>
+                      <td>{{session.id}}</td>
+                      <td>{{session.volunteer}}</td>
+                      <td>{{session.enterprise}}</td>
+                      <td>{{session.place}}</td>
+                      <td>{{session.start_time|date:'Y-m-d  h:i'}}</td>
+                      {% for enterprise in session.detaillist %}
+                      <td>
+                        {% if enterprise.contacts %}
+                          {{ enterprise.contacts }}
+                        {% else %}
+                          待填
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if enterprise.phone %}
+                          {{enterprise.phone}}
+                        {% else %}
+                          待填
+                        {% endif %}
+                      </td>
+                      {% endfor %}
+                      <!-- <td>
+                          <a href="{% url 'sessionsEdit' session.id %}" class="btn btn-mini btn-primary">编辑</a>
+                          <a href="javascript:doDel('{% url 'sessionsDelete' session.id %}');" class="btn btn-mini btn-danger">删除</a>
+                      </td> -->
+                    </tr>
+                  {% endfor %}
+                </tbody>
             </table>
-            <!-- 主体结束 -->
+            <center>
+              <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                      <li>
+                        <a href="{% url 'sessions' pIndex|add:-1 %}?{{ mywhere|join:'&' }}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      {% for p in plist %}
+                      <li {% if pIndex == p %}class="active"{% endif %}><a href="{% url 'sessions' p %}?{{ mywhere|join:'&' }}">{{p}}</a></li>
+                      {% endfor %}
+                      <li>
+                        <a href="{% url 'sessions' pIndex|add:1 %}?{{ mywhere|join:'&' }}" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                  </ul>
+              </nav>
+            </center>
         </div>
     </div>
   </div>

@@ -72,12 +72,12 @@
                 <div class="layout-user-downmenu">
                   <ul class="layout-user-downmenu-list">
                   {% if request.session.volunteers %}
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'volunteers_sessions' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">招聘会</a>
+										</li>
                     <li class="layout-user-downmenu-item">
                       <a href="{% url 'volunteers_info' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">个人中心</a>
                     </li>
-                    <!-- <li class="layout-user-downmenu-item">
-                      <a href="{% url 'volunteers_edit' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">修改个人信息</a>
-                    </li> -->
                     <li class="layout-user-downmenu-item">
                       <a href="{% url 'logout' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">退出</a>
                     </li>
