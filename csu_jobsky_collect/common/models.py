@@ -3,8 +3,9 @@ from datetime import datetime
 
 
 class Users(models.Model):
-    """管理员信息模型"""
+    """人员信息模型"""
     username = models.CharField(max_length=32)
+    name = models.CharField(max_length=16) #真实姓名
     password = models.CharField(max_length=32)
     sex = models.IntegerField(default=1)
     student_id = models.CharField(max_length=10)
@@ -14,7 +15,7 @@ class Users(models.Model):
     addtime = models.DateTimeField(default=datetime.now)
 
     def toDict(self):
-        return {'id':self.id,'sex':self.sex,'username':self.username,'password':self.password,'student_id':self.student_id,'phone':self.phone,'email':self.email,'state':self.state}
+        return {'id':self.id,'sex':self.sex,'name':self.name,'username':self.username,'password':self.password,'student_id':self.student_id,'phone':self.phone,'email':self.email,'state':self.state}
 
     class Meta:
         db_table = "user"

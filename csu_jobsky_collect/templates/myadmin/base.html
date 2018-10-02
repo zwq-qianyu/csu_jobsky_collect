@@ -62,7 +62,7 @@
 							</form>
 							<ul class="nav pull-right">
 								<li>
-									<a href="profile.htm">@{{request.session.myadminuser.name}}</a>
+									<a href="profile.htm">@{{ request.session.myadminuser.name }}</a>
 								</li>
 								<li>
 									<a href="{% url 'myadmin_logout' %}">退出</a>
@@ -75,7 +75,7 @@
 
 
             <div class="row">
-				<div class="span3">
+				<div class="span2">
                     <!-- 侧边导航开始 -->
 					<div class="well" style="padding: 8px 0;">
 						<ul class="nav nav-list">
@@ -85,7 +85,7 @@
 							<li class="active">
 								<a href="{% url 'myadmin_index'%}"><i class="icon-white icon-home"></i> 首页</a>
 							</li>
-                            <li class="nav-header">
+              <li class="nav-header">
 								会员管理
 							</li>
 							<li>
@@ -93,24 +93,6 @@
 							</li>
 							<li>
 								<a href="{% url 'myadmin_users_add' %}"><i class="icon-check"></i> 添加会员</a>
-							</li>
-							<li class="nav-header">
-								商品类别管理
-							</li>
-							<li>
-								<a href="{% url 'myadmin_type_index'  %}"><i class="icon-envelope"></i> 浏览商品类别</a>
-							</li>
-							<li>
-								<a href="{% url 'myadmin_type_add' 0 %}"><i class="icon-file"></i> 添加商品类别</a>
-							</li>
-							<li class="nav-header">
-								商品信息管理
-							</li>
-							<li>
-								<a href="{% url 'myadmin_goods_index' 1 %}"><i class="icon-user"></i> 浏览商品信息</a>
-							</li>
-							<li>
-								<a href="{% url 'myadmin_goods_add'%}"><i class="icon-cog"></i> 添加商品信息</a>
 							</li>
 							<li class="divider">
 							</li>
@@ -129,7 +111,7 @@
 						</ul>
 					</div><!-- 侧边导航结束 -->
 				</div>
-				<div class="span9">
+				<div class="span10">
                     <!-- 主体开始 -->
 					{% block mainbody %}
 					{% endblock %}

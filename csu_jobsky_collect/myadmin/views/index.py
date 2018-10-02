@@ -31,8 +31,10 @@ def dologin(request):
             import hashlib
             m = hashlib.md5()
             m.update(bytes(request.POST['password'],encoding="utf8"))
+            # m = request.POST['password']
             # 校验密码是否正确
             if user.password == m.hexdigest():
+            # if user.password == m:
                 # 将当前登录成功用户信息以myadminuser这个key放入到session中
                 request.session['myadminuser']=user.toDict()
                 return redirect(reverse('myadmin_index'))

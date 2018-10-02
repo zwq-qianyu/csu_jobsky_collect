@@ -4,7 +4,7 @@ from datetime import datetime
 
 from django.db.models import Q
 from django.core.paginator import Paginator
-# from common.models import Users
+from common.models import Users
 # Create your views here.
 def index(request,pIndex):
     '''浏览信息'''
@@ -53,6 +53,7 @@ def insert(request):
     try:
         ob = Users()
         ob.username = request.POST['username']
+        ob.name = request.POST['name']
         #获取密码并md5
         import hashlib
         m = hashlib.md5()
@@ -98,6 +99,7 @@ def update(request,uid):
     try:
         ob = Users.objects.get(id=uid)
         ob.username = request.POST['username']
+        ob.name = request.POST['name']
         ob.sex = request.POST['sex']
         ob.phone = request.POST['phone']
         ob.email = request.POST['email']

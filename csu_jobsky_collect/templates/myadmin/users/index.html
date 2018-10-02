@@ -25,6 +25,7 @@
 			<th>账号</th>
 			<th>姓名</th>
 			<th>性别</th>
+			<th>学号</th>
 			<th>邮箱</th>
 			<th>注册时间</th>
 			<th>状态</th>
@@ -38,13 +39,16 @@
 			<td>{{ vo.username }}</td>
 			<td>{{ vo.name }}</td>
 			<td>{% if vo.sex == 1 %}男{% else %}女{% endif %}</td>
+			<td>{{ vo.student_id }}</td>
 			<td>{{ vo.email }}</td>
 			<td>{{ vo.addtime }}</td>
 			<td>{% if vo.state == 1 %}启用{% elif vo.state == 2 %}禁用{% else %}后台管理员{% endif %}</td>
 			<td>
+				{% if vo.username != 'ziyichen' %}
 				<a href="{% url 'myadmin_users_editpasswd' vo.id %}" class="btn btn-mini btn-success">重置密码</a>
 				<a href="{% url 'myadmin_users_edit' vo.id %}" class="btn btn-mini btn-primary">编辑</a>
 				<a href="{% url 'myadmin_users_del' vo.id %}" class="btn btn-mini btn-danger">删除</a>
+				{% endif %}
 			</td>
 		</tr>
 		{% endfor %}
