@@ -25,7 +25,7 @@ class LoginMiddleware(object):
         # 网站前台会员登录判断
         if re.match("^/volunteers",path):
             # 判断当前会员是否没有登录
-            if "volunteers_user" not in request.session:
+            if "volunteers" not in request.session:
                 # 执行登录界面跳转
                 return redirect(reverse('login'))
 

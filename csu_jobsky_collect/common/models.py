@@ -22,6 +22,7 @@ class Users(models.Model):
 
 
 class Sessions(models.Model):
+    uid = models.IntegerField()
     enterprise = models.CharField(max_length=100)
     start_time = models.DateTimeField()
     place = models.CharField(max_length=100)

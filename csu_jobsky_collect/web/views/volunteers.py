@@ -1,82 +1,115 @@
-from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
-from common.models import Sessions
-import os
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator
 
-# Create your views here.
-def index(request):
-    #主页
-    return render(request,"web/index.html")
+from common.models import Users,Sessions
 
+# 公共信息加载函数
+def loadinfo(request):
+    lists = Types.objects.filter(pid=0)
+    context = {'typelist':lists}
+    return context
 
-def sessions(request,pIndex):
-    #获取招聘会信息
-    lists = Sessions.objects.all()
-    #分页封装信息
-    p = Paginator(lists,5)
-    if pIndex == "":
-        pIndex="1"
-    list2 = p.page(pIndex)
-    plist = p.page_range
-    context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
-    return render(request,"web/volunteers/index.html",context)
+def  volun_sessions(request):
+    '''浏览填写的企业信息'''
+    context = loadinfo(request)
+    #获取当前登录者填写的企业信息
+    selist = Sessions.objects.filter(uid=request.session['volunteers']['id'])
+    # #遍历订单信息，查询对应的详情信息
+    # for od in odlist:
+    #     delist = Detail.objects.filter(orderid=od.id)
+    #     #遍历订单详情，并且获取对应的商品信息（图片）
+    #     for og in delist:
+    #         og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
+    #     od.detaillist = delist
 
+    context['aessionslist'] = selist
+    return render(request,"web/viporders.html",context)
 
-def sessionsAdd(request):
-    #加载添加表单
-    return render(request,"web/volunteers/add.html")
-
-
-def sessionsInsert(request):
-    '''执行学生信息的上传插入'''
+def odstate(request):
+    ''' 修改填写的企业信息 '''
     try:
-        volunteer = Sessions()
-        volunteer.enterprise = request.POST['enterprise']
-        volunteer.start_time = request.POST['start_time']
-        volunteer.place = request.POST['place']
-        volunteer.save()
-        context = {"info":"添加成功！"}
-    except Exception as e:
-        print(e)
-        context = {"info":"添加失败！"}
+        sid = request.GET.get("sid",'0')
+        ob = Sessions.objects.get(id=oid)
+        ob.enterprise = request.GET['enterprise']
+        ob.place = request.GET['place']
+        ob.start_time = request.GET['start_time']
+        ob.save()
+        return redirect(reverse('vip_orders'))
+    except Exception as err:
+        print(err)
+        return HttpResponse("信息修改失败！")
 
-    return render(request,"./web/volunteers/info.html",context)
-
-
-def sessionsDelete(request,uid):
+def info(request):
+    '''加载编辑个人信息页面'''
     try:
-        #找到对应的招聘会对象
-        ob = Sessions.objects.get(id=uid)
-        ob.delete()
-        context = {"info":"删除成功！"}
-    except Exception as e:
-        print(e)
-        context = {"info":"删除失败！"}
-    return render(request,"./web/volunteers/info.html",context)
-
-
-def sessionsEdit(request,uid):
-    try:
-        ob = Sessions.objects.get(id=uid)
+        # print(request.session['volunteers']['id'])
+        ob = Users.objects.get(id=request.session['volunteers']['id'])
+        # print("ob:")
+        # print(ob)
         context={"volunteer":ob}
-        return render(request,"web/volunteers/edit.html",context)
-    except Exception as e:
-        print(e)
-        context = {"info":"没有找到要修改的信息！"}
+        print("id: "+ str(ob.id))
         return render(request,"web/volunteers/info.html",context)
+    except Exception as err:
+        print(err)
+        context={"info":"没有找到信息！"}
+        return render(request,"web/info.html",context)
 
-
-def sessionsUpdate(request):
-    print(request.POST['id'])
+def edit(request):
+    '''加载编辑信息页面'''
     try:
-        volunteer = Sessions.objects.get(id=request.POST['id'])
-        volunteer.enterprise = request.POST['enterprise']
-        volunteer.start_time = request.POST['start_time']
-        volunteer.place = request.POST['place']
-        volunteer.save()
-        context = {"info":"修改成功！"}
-    except Exception as e:
-        print(e)
-        context = {"info":"修改失败！"}
-    return render(request,"web/volunteers/info.html",context)
+        ob = Users.objects.get(id=request.session['volunteers']['id'])
+        context={"vip":ob}
+        print("id: "+ str(ob.id))
+        return render(request,"web/vip/edit.html",context)
+    except Exception as err:
+        print(err)
+        context={"info":"没有找到要修改的信息！"}
+        return render(request,"web/info.html",context)
+
+def update(request):
+    '''执行编辑信息'''
+    try:
+        ob = Users.objects.get(id=request.session['volunteers']['id'])
+        ob.name = request.POST['name']
+        ob.sex = request.POST['sex']
+        ob.address = request.POST['address']
+        ob.code = request.POST['code']
+        ob.phone = request.POST['phone']
+        ob.email = request.POST['email']
+        ob.state = 1
+        ob.save()
+        context={"info":"修改成功！"}
+    except Exception as err:
+        print(err)
+        context={"info":"修改失败"}
+    return render(request,"web/info.html",context)
+
+def resetpass(request):
+    '''加载重置会员密码信息页面'''
+    try:
+        ob = Users.objects.get(id=request.session['volunteers']['id'])
+        context={"vip":ob}
+        return render(request,"web/vip/resetpass.html",context)
+    except Exception as err:
+        context={"info":"没有找到要修改的信息！"}
+        return render(request,"web/info.html",context)
+
+def doresetpass(request):
+    '''执行编辑信息'''
+    try:
+        ob = Users.objects.get(id=request.session['volunteers']['id'])
+        #获取密码并md5
+        import hashlib
+        m = hashlib.md5()
+        m.update(bytes(request.POST['password'],encoding="utf8"))
+        ob.password = m.hexdigest()
+        ob.save()
+        #context={"info":"密码重置成功！"}
+        return render(request,"web/login.html")
+    except Exception as err:
+        print(err)
+        context={"info":"密码重置失败"}
+        return render(request,"web/info.html",context)
