@@ -17,7 +17,7 @@
       <ol class="breadcrumb">
         <li class="hidden-xs hidden-sm"><a href="{% url 'index' %}">首页</a></li>
         <li class="hidden-xs hidden-sm"><a href="#">志愿者</a></li>
-        <li class="active">个人中心</li>
+        <li class="active">招聘会</li>
       </ol>
     </div><!-- 面包屑导航 E-->
 
@@ -28,9 +28,9 @@
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
                 <a href="{% url 'volunteers_sessions' %}" class="ml " >企业信息</a>
                 <a href="{% url 'ssessionsAdd' %}" class="ml " >添加招聘会</a>
-                <a href="{% url 'sessions' 1 %}" class="ml " >所有招聘会</a>
+                <a href="{% url 'sessions' 1 %}" class="ml active" >所有招聘会</a>
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a>
-                <a href="{% url 'volunteers_info' %}" class="ml active" >浏览信息</a>
+                <a href="{% url 'volunteers_info' %}" class="ml " >浏览信息</a>
                 <a href="{% url 'volunteers_edit' %}" class="ml " >修改信息</a>
                 <a href="{% url 'volunteers_resetpass' %}" class="ml " >重置密码</a>
                 <a href="#" class="ml " >我的收藏</a>
@@ -43,35 +43,26 @@
         <div class="span10" style="margin-left: 300px;">
             <!-- 主体开始 -->
             <hr>
-            <form id="edit-profile" action="{% url 'volunteers_update' %}" class="form-horizontal" method="post">
-                {% csrf_token %}
-                <fieldset>
-                    <div style="margin-left: 100px;">
-                        <div class="control-group">
-                            <label class="control-label" for="input01">账号：{{ volunteer.username }}</label>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">真实姓名：{{ volunteer.name }}</label>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">性别：
-                                {% if volunteer.sex == 1 %}  男{% endif %}
-                                {% if volunteer.sex == 0 %}  女{% endif %}
-                            </label>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">学号：{{ volunteer.student_id }}</label>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">电话：{{ volunteer.phone }}</label>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">email邮箱：{{ volunteer.email }}</label>
-                        </div>
-                    </div>
-
-                </fieldset>
-            </form>
+            <table>
+            	<thead>
+								<th>序号</th>
+								<th>志愿者</th>
+								<th>企业</th>
+								<th>地点</th>
+								<th>时间</th>
+								<th>联系人</th>
+								<th>联系方式</th>
+            	</thead>
+							<tbody>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tbody>
+            </table>
             <!-- 主体结束 -->
         </div>
     </div>

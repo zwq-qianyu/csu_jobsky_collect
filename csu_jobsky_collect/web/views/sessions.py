@@ -14,29 +14,33 @@ def sessions(request,pIndex):
     #获取招聘会信息
     lists = Sessions.objects.all()
     #分页封装信息
-    p = Paginator(lists,5)
+    p = Paginator(lists,10)
     if pIndex == "":
         pIndex="1"
     list2 = p.page(pIndex)
     plist = p.page_range
     context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
-    return render(request,"web/volunteers/index.html",context)
+    return render(request,"web/sessions/index.html",context)
 
 
 def sessionsAdd(request):
     #加载添加表单
-    return render(request,"web/volunteers/add.html")
+    return render(request,"web/sessions/add.html")
 
 
 def sessionsInsert(request):
-    '''执行学生信息的上传插入'''
+    '''执行招聘会信息的上传插入'''
     try:
-        volunteer = Sessions()
-        volunteer.enterprise = request.POST['enterprise']
-        volunteer.start_time = request.POST['start_time']
-        volunteer.place = request.POST['place']
-        volunteer.save()
-        context = {"info":"添加成功！"}
+        session = Sessions()
+        session.uid = request.POST['uid']
+        session.enterprise = request.POST['enterprise']
+        session.start_time = request.POST['start_time']
+        session.place = request.POST['place']
+        session.volunteer = request.POST['volunteer']
+        session.summary = request.POST['summary']
+        session.qr_imgname = request.POST['qr_imgname']
+        session.save()
+        context = {"info":"招聘会添加成功！"}
     except Exception as e:
         print(e)
         context = {"info":"添加失败！"}
@@ -44,10 +48,10 @@ def sessionsInsert(request):
     return render(request,"./web/volunteers/info.html",context)
 
 
-def sessionsDelete(request,uid):
+def sessionsDelete(request,sid):
     try:
         #找到对应的招聘会对象
-        ob = Sessions.objects.get(id=uid)
+        ob = Sessions.objects.get(id=sid)
         ob.delete()
         context = {"info":"删除成功！"}
     except Exception as e:
@@ -56,11 +60,11 @@ def sessionsDelete(request,uid):
     return render(request,"./web/volunteers/info.html",context)
 
 
-def sessionsEdit(request,uid):
+def sessionsEdit(request,sid):
     try:
-        ob = Sessions.objects.get(id=uid)
-        context={"volunteer":ob}
-        return render(request,"web/volunteers/edit.html",context)
+        ob = Sessions.objects.get(id=sid)
+        context={"session":ob}
+        return render(request,"web/sessions/edit.html",context)
     except Exception as e:
         print(e)
         context = {"info":"没有找到要修改的信息！"}
@@ -70,11 +74,15 @@ def sessionsEdit(request,uid):
 def sessionsUpdate(request):
     print(request.POST['id'])
     try:
-        volunteer = Sessions.objects.get(id=request.POST['id'])
-        volunteer.enterprise = request.POST['enterprise']
-        volunteer.start_time = request.POST['start_time']
-        volunteer.place = request.POST['place']
-        volunteer.save()
+        session = Sessions.objects.get(id=request.POST['id'])
+        session.uid = request.POST['uid']
+        session.enterprise = request.POST['enterprise']
+        session.start_time = request.POST['start_time']
+        session.place = request.POST['place']
+        session.volunteer = request.POST['volunteer']
+        session.summary = request.POST['summary']
+        session.qr_imgname = request.POST['qr_imgname']
+        session.save()
         context = {"info":"修改成功！"}
     except Exception as e:
         print(e)

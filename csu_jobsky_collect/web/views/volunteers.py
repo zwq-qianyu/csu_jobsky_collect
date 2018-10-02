@@ -4,12 +4,12 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
 
-from common.models import Users,Sessions
+from common.models import Users,Sessions,Enterprises
 
 # 公共信息加载函数
 def loadinfo(request):
-    lists = Types.objects.filter(pid=0)
-    context = {'typelist':lists}
+    lists = Enterprises.objects.all()
+    context = {'enterpriselist':lists}
     return context
 
 def  volun_sessions(request):
@@ -17,16 +17,23 @@ def  volun_sessions(request):
     context = loadinfo(request)
     #获取当前登录者填写的企业信息
     selist = Sessions.objects.filter(uid=request.session['volunteers']['id'])
-    # #遍历订单信息，查询对应的详情信息
-    # for od in odlist:
-    #     delist = Detail.objects.filter(orderid=od.id)
-    #     #遍历订单详情，并且获取对应的商品信息（图片）
-    #     for og in delist:
-    #         og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
-    #     od.detaillist = delist
+    #遍历订单信息，查询对应的详情信息
+    for se in selist:
+        enlist = Enterprises.objects.filter(session_id=se.id)
+        #遍历订单详情，并且获取对应的商品信息（图片）
+        # for og in enlist:
+        #     og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
+        se.detaillist = enlist
 
-    context['aessionslist'] = selist
-    return render(request,"web/viporders.html",context)
+    context['sessionslist'] = selist
+    # #分页封装信息
+    # p = Paginator(selist,5)
+    # if pIndex == "":
+    #     pIndex="1"
+    # list2 = p.page(pIndex)
+    # plist = p.page_range
+    # context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
+    return render(request,"web/volunteers/volun_sessions.html",context)
 
 def odstate(request):
     ''' 修改填写的企业信息 '''
@@ -43,7 +50,7 @@ def odstate(request):
         return HttpResponse("信息修改失败！")
 
 def info(request):
-    '''加载编辑个人信息页面'''
+    '''加载个人信息页面'''
     try:
         # print(request.session['volunteers']['id'])
         ob = Users.objects.get(id=request.session['volunteers']['id'])
@@ -61,9 +68,9 @@ def edit(request):
     '''加载编辑信息页面'''
     try:
         ob = Users.objects.get(id=request.session['volunteers']['id'])
-        context={"vip":ob}
+        context={"volunteer":ob}
         print("id: "+ str(ob.id))
-        return render(request,"web/vip/edit.html",context)
+        return render(request,"web/volunteers/edit.html",context)
     except Exception as err:
         print(err)
         context={"info":"没有找到要修改的信息！"}
@@ -75,8 +82,7 @@ def update(request):
         ob = Users.objects.get(id=request.session['volunteers']['id'])
         ob.name = request.POST['name']
         ob.sex = request.POST['sex']
-        ob.address = request.POST['address']
-        ob.code = request.POST['code']
+        ob.student_id = request.POST['student_id']
         ob.phone = request.POST['phone']
         ob.email = request.POST['email']
         ob.state = 1
@@ -91,9 +97,11 @@ def resetpass(request):
     '''加载重置会员密码信息页面'''
     try:
         ob = Users.objects.get(id=request.session['volunteers']['id'])
-        context={"vip":ob}
-        return render(request,"web/vip/resetpass.html",context)
+        context={"volunteer":ob}
+        print("id: "+ str(ob.id))
+        return render(request,"web/volunteers/resetpass.html",context)
     except Exception as err:
+        print(err)
         context={"info":"没有找到要修改的信息！"}
         return render(request,"web/info.html",context)
 

@@ -28,17 +28,21 @@ class Sessions(models.Model):
     place = models.CharField(max_length=100)
     volunteer = models.CharField(max_length=32)
     summary = models.TextField()
+    qr_imgname = models.CharField(max_length=255)
 
     class Meta:
         db_table = "session"
 
 
 class Enterprises(models.Model):
-	contacts = models.CharField(max_length=32)
-	phone = models.CharField(max_length=16)
+    uid = models.IntegerField()
+    session_id = models.IntegerField()
+    contacts = models.CharField(max_length=32)
+    phone = models.CharField(max_length=16)
+    picname = models.CharField(max_length=255)
 
-	class Meta:
-		db_table = "enterprise"
+    class Meta:
+        db_table = "enterprise"
 
 
 class Students(models.Model):
