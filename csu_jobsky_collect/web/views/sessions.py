@@ -68,7 +68,7 @@ def sessionsInsert(request):
         enterprise.session_id = session.id
         enterprise.save()
         # 生成二维码并保存
-        site_name = "csu.runtofuture.cn/"+str(session.id) #网址
+        site_name = DOMAIN+"/"+str(session.id) #网址
         qr_imgname = str(time.time())+"u"+str(session.uid)+"i"+str(session.id)+".png" #二维码名字
         destination = "./static/qr_pics/"   #存放二维码的地址
         generate_qr(site_name, qr_imgname, destination)
