@@ -12,27 +12,31 @@ def loadinfo(request):
     context = {'enterpriselist':lists}
     return context
 
-def  volun_sessions(request):
+def  volun_sessions(request,pIndex):
     '''浏览填写的企业信息'''
     context = loadinfo(request)
     #获取当前登录者填写的企业信息
     selist = Sessions.objects.filter(uid=request.session['volunteers']['id'])
     #遍历订单信息，查询对应的详情信息
     for se in selist:
+        # print(se.id)
+        # print(se.uid)
+        # print(se.uid == request.session['volunteers']['id'])
         enlist = Enterprises.objects.filter(session_id=se.id)
-        #遍历订单详情，并且获取对应的商品信息（图片）
+        # 遍历订单详情，并且获取对应的信息
         # for og in enlist:
-        #     og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
+        #     print(og.contacts)
+            # og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
         se.detaillist = enlist
 
-    context['sessionslist'] = selist
+    # context['sessionslist'] = selist
     # #分页封装信息
-    # p = Paginator(selist,5)
-    # if pIndex == "":
-    #     pIndex="1"
-    # list2 = p.page(pIndex)
-    # plist = p.page_range
-    # context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
+    p = Paginator(selist,5)
+    if pIndex == "":
+        pIndex="1"
+    list2 = p.page(pIndex)
+    plist = p.page_range
+    context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
     return render(request,"web/volunteers/volun_sessions.html",context)
 
 def odstate(request):

@@ -4,14 +4,24 @@
 {% block mylink %}
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
+  <!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<style media="screen">
+		.form{
+			width: 70%;
+		}
+		h3{
+			margin-top: 50px;
+			margin-bottom: 60px;
+		}
+		.btn{
+			margin: 25px;
+		}
+	</style>
+  <!-- 自定义样式 -->
   <style type="text/css">
-      div label{font-size: 20px;line-height: 40px;}
-			table{text-align: center;border-collapse: collapse;}
-			table,th,td{border: 1px solid black;}
-			td button{
-				margin-top: 5px;
-				margin-bottom: 5px;
-			}
 			tr th{
 				text-align: center;
 			}
@@ -28,7 +38,7 @@
     <div class="crumbs col-xs-12 col-sm-12">
       <ol class="breadcrumb">
         <li class="hidden-xs hidden-sm"><a href="{% url 'index' %}">首页</a></li>
-        <li class="hidden-xs hidden-sm"><a href="#">志愿者</a></li>
+        <li class="hidden-xs hidden-sm"><a href="{% url 'volunteers_sessions' 1 %}">招聘会</a></li>
         <li class="active">招聘会</li>
       </ol>
     </div><!-- 面包屑导航 E-->
@@ -38,7 +48,7 @@
         <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
             <div class="nav-main">
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
-                <a href="{% url 'volunteers_sessions' %}" class="ml " >企业信息</a>
+                <a href="{% url 'volunteers_sessions' 1 %}" class="ml " >企业信息</a>
                 <a href="{% url 'ssessionsAdd' %}" class="ml active" >添加招聘会</a>
                 <a href="{% url 'sessions' 1 %}" class="ml " >所有招聘会</a>
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a>
@@ -52,69 +62,56 @@
         </div><!-- 左侧导航 E-->
 
         <!-- 右侧内容展示 -->
-        <div class="span10" style="margin-left: 300px;">
+        <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
             <!-- 主体开始 -->
-            <hr>
-						<center>
-							<h3>查看所有招聘信息</h3>
-							<br>
-	            <table  width="90%;">
-	            	<thead>
-									<tr>
-										<th>序号</th>
-										<th>志愿者</th>
-										<th>企业</th>
-										<th>地点</th>
-										<th>时间</th>
-										<th>联系人</th>
-										<th>联系方式</th>
-									</tr>
-	            	</thead>
-								<tbody>
-								{% for session in sessionslist %}
-										<tr>
-											<td>{{session.id}}</td>
-											<td>{{session.volunteer}}</td>
-											<td>{{session.enterprise}}</td>
-											<td>{{session.place}}</td>
-											<td>{{session.start_time|date:'Y-m-d  h:i'}}</td>
-											{% for enterprise in session.detaillist %}
-											<td>
-												{% if enterprise.contacts %}
-													{{ enterprise.contacts }}
-												{% else %}
-													待填
-												{% endif %}
-											</td>
-											<td>
-												{% if enterprise.phone %}
-													{{enterprise.phone}}
-												{% else %}
-													待填
-												{% endif %}
-											</td>
-											{% endfor %}
-											<!-- <td>
-												<a href="{% url 'sessionsEdit' session.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
-												<a href="javascript:doDel('{% url 'sessionsDelete' session.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
-											</td> -->
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-								<br>
-							{% for i in plist %}
-	                {% if i == pIndex %}
-	                    <b style="color:red">{{i}}</b>
-	                {% else %}
-	                    <a href="{% url 'students' i %}">{{i}}</a>
-	                {% endif %}
-	            {% endfor %}
-						</center>
-	        <!-- 主体结束 -->
+            <div class="type-tab-btn">
+    					<a href="{% url 'volunteers_sessions' 1 %}" class="allOrder col-20" data-type="-1">全部招聘会</a><i class="line hidden-xs hidden-sm">|</i>
+    					<a class="active col-20" href="{% url 'ssessionsAdd' %}" data-type="0">添加招聘会<span class="amount _actAmount"></span></a><i class="line hidden-xs hidden-sm">|</i>
+    					<a class="col-20" href="{% url 'sessions' 1 %}" data-type="1">所有招聘会</a><i class="line hidden-xs hidden-sm">|</i>
+    					<!-- <a class="hasDeliver col-20" href="javascript:;" data-type="2">已发货</a><i class="line hidden-xs hidden-sm">|</i>
+    					<a class="other col-20" href="javascript:;" data-type="99">其他</a> -->
+    				</div>
+            <br>
+            <form id="edit-profile" action="{% url 'sessionsInsert' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="uid" value="{{uid}}">
+                <input type="hidden" name="volunteer" value="{{volunteer}}">
+                {% csrf_token %}
+                <!-- <legend>添加招聘会信息</legend> -->
+                <br>
+                <div class="form-group">
+                  <label for="inputEnterprise" class="col-sm-2 control-label">企业名称</label>
+                  <div class="col-sm-6">
+                    <input class="form-control" id="inputEnterprise" name="enterprise" placeholder="企业名称">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPlace" class="col-sm-2 control-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</label>
+                  <div class="col-sm-6">
+                    <input class="form-control" id="inputPlace" name="place" placeholder="地      点">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputStartTime" class="col-sm-2 control-label">开始时间</label>
+                  <div class="col-sm-6">
+                    <input class="flatpickr mycalendar form-control" id="inputStartTime" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始时间" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">提交</button>
+                    <button type="reset" class="btn btn-default">重置</button>
+                  </div>
+                </div>
+                <br><br>
+            </form>
+	          <!-- 主体结束 -->
         </div>
     </div>
   </div>
 </div>
+<!-- 初始化  日期时间插件 flatpickr.js -->
+<script type="text/javascript">
+  $(".mycalendar").flatpickr();
+</script>
 <!-- 主内容区域 E-->
 {% endblock %}

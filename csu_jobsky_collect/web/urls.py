@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^insert$', index.insert, name="insert"),
 
     # 志愿者个人中心
-    url(r'^volunteers/sessions$', volunteers.volun_sessions,name='volunteers_sessions'), #志愿者中心企业信息
+    url(r'^volunteers/sessions/(?P<pIndex>[0-9]+)$', volunteers.volun_sessions,name='volunteers_sessions'), #志愿者中心企业信息
     url(r'^volunteers/info$', volunteers.info,name='volunteers_info'), #志愿者中心的个人信息
     url(r'^volunteers/edit$', volunteers.edit,name='volunteers_edit'), #加载修改消息表单
     url(r'^volunteers/update$', volunteers.update,name='volunteers_update'), #执行修改会员信息

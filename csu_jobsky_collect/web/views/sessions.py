@@ -16,7 +16,7 @@ def sessions(request,pIndex):
     #遍历订单信息，查询对应的详情信息
     for se in lists:
         enlist = Enterprises.objects.filter(session_id=se.id)
-        #遍历订单详情，并且获取对应的商品信息（图片）
+        #遍历订单详情，并且获取对应的企业信息（图片）
         # for og in enlist:
         #     og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
         se.detaillist = enlist
@@ -33,8 +33,9 @@ def sessions(request,pIndex):
 
 
 def sessionsAdd(request):
+    context = {"uid":request.session['volunteers']['id'],"volunteer":request.session['volunteers']['name']}
     #加载添加表单
-    return render(request,"web/sessions/add.html")
+    return render(request,"web/sessions/add.html",context)
 
 
 def sessionsInsert(request):
@@ -46,15 +47,22 @@ def sessionsInsert(request):
         session.start_time = request.POST['start_time']
         session.place = request.POST['place']
         session.volunteer = request.POST['volunteer']
-        session.summary = request.POST['summary']
-        session.qr_imgname = request.POST['qr_imgname']
+        if session.summary:
+            session.summary = request.POST['summary']
+        if session.qr_imgname:
+            session.qr_imgname = request.POST['qr_imgname']
         session.save()
+        print(session.id)
+        enterprise = Enterprises()
+        enterprise.uid = request.POST['uid']
+        enterprise.session_id = session.id
+        enterprise.save()
         context = {"info":"招聘会添加成功！"}
     except Exception as e:
         print(e)
         context = {"info":"添加失败！"}
 
-    return render(request,"./web/volunteers/info.html",context)
+    return render(request,"./web/sessions/info.html",context)
 
 
 def sessionsDelete(request,sid):
@@ -66,7 +74,7 @@ def sessionsDelete(request,sid):
     except Exception as e:
         print(e)
         context = {"info":"删除失败！"}
-    return render(request,"./web/volunteers/info.html",context)
+    return render(request,"./web/sessions/info.html",context)
 
 
 def sessionsEdit(request,sid):
@@ -77,7 +85,7 @@ def sessionsEdit(request,sid):
     except Exception as e:
         print(e)
         context = {"info":"没有找到要修改的信息！"}
-        return render(request,"web/volunteers/info.html",context)
+        return render(request,"web/sessions/info.html",context)
 
 
 def sessionsUpdate(request):
@@ -96,4 +104,4 @@ def sessionsUpdate(request):
     except Exception as e:
         print(e)
         context = {"info":"修改失败！"}
-    return render(request,"web/volunteers/info.html",context)
+    return render(request,"web/sessions/info.html",context)

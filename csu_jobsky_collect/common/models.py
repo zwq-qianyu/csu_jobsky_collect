@@ -27,7 +27,7 @@ class Sessions(models.Model):
     start_time = models.DateTimeField()
     place = models.CharField(max_length=100)
     volunteer = models.CharField(max_length=32)
-    summary = models.TextField()
+    summary = models.TextField(default="总结待填写...")
     qr_imgname = models.CharField(max_length=255)
 
     class Meta:
