@@ -59,7 +59,7 @@
       <div class="container clearfix">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div class="layout-header-logo navbar-left">
-              <a href="{% url 'index' %}" class="layout-header-logo-link" alt="魅族科技">
+              <a href="{% url 'index' session_id %}" class="layout-header-logo-link" alt="中南大学">
                 <img src="{% static 'web/img/logo.png' %}">
               </a>
           </div>
@@ -95,7 +95,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
             <li class="layout-header-nav-item">
-              <a href="{% url 'index' %}" class="layout-header-nav-link"> 首页 </a><p class="line-top hidden-xs"></p>
+              <a href="{% url 'index' session_id %}" class="layout-header-nav-link"> 首页 </a><p class="line-top hidden-xs"></p>
             </li>
           </ul>
         </div>
@@ -127,8 +127,8 @@
 		<br>
 
 		<div id="choose">
-			<h2><a href="{% url 'enterprisesAdd' 1 %}">我是企业</a></h2>
-			<h2><a href="{% url 'studentsAdd' %}">我是学生</a></h2>
+			<h2><a href="{% url 'enterprisesAdd' session_id %}">我是企业</a></h2>
+			<h2><a href="{% url 'studentsAdd' session_id %}">我是学生</a></h2>
 		</div>
 	</center>
 

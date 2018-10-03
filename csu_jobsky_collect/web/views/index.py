@@ -16,7 +16,9 @@ def dologin(request):
     '''会员执行登录'''
     # 校验验证码
     verifycode = request.session['verifycode']
+    print(verifycode)
     code = request.POST['code']
+    print(code)
     if verifycode != code:
         context = {'info':'验证码错误！'}
         return render(request,"web/login.html",context)
@@ -33,12 +35,13 @@ def dologin(request):
             if user.password == m.hexdigest():
                 # 此处登录成功，将当前登录信息放入到session中，并跳转页面
                 request.session['volunteers'] = user.toDict()
-                return redirect(reverse('index'))
+                return redirect(reverse('volunteers_info'))
             else:
                 context = {'info':'登录密码错误！'}
         else:
             context = {'info':'此用户为非法用户！'}
-    except:
+    except Exception as err:
+        print(err)
         context = {'info':'登录账号错误！'}
     return render(request,"web/login.html",context)
 

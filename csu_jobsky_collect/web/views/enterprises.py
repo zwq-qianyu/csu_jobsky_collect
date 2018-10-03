@@ -7,9 +7,10 @@ from common.models import Enterprises,Sessions
 import os
 
 # Create your views here.
-def index(request):
+def index(request,sid):
+    context = {"session_id":sid}
     #主页
-    return render(request,"web/index.html")
+    return render(request,"web/index.html",context)
 
 
 def enterprises(request,pIndex):
@@ -38,7 +39,8 @@ def enterprisesAdd(request,sid):
     context = {"session": session}
     print(enterprise.contacts)
     if (enterprise.contacts is not None) and (enterprise.contacts != ""):
-        return HttpResponseRedirect(reverse('enterprisesEdit', args=(sid)))
+        print(sid)
+        return HttpResponseRedirect(reverse('enterprisesEdit', kwargs={'sid': sid}))
     #加载添加表单
     return render(request,"web/enterprises/add.html",context)
 

@@ -12,9 +12,9 @@
 	<!-- 面包屑导航 -->
 	<div class="crumbs col-xs-12 col-sm-12">
 	  <ol class="breadcrumb">
-		<li class="hidden-xs hidden-sm"><a href="{% url 'index' %}">首页</a></li>
+		<li class="hidden-xs hidden-sm"><a href="{% url 'enterprises' 1 %}">首页</a></li>
 		<li class="hidden-xs hidden-sm"><a href="{% url 'volunteers_sessions' 1 %}">招聘会</a></li>
-		<li class="active">全部招聘会</li>
+		<li class="active">我的招聘会</li>
 	  </ol>
 	</div><!-- 面包屑导航 E-->
 
@@ -23,7 +23,7 @@
 		<div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
 			<div class="nav-main">
         <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
-        <a href="{% url 'volunteers_sessions' 1 %}" class="ml active" >企业信息</a>
+        <a href="{% url 'volunteers_sessions' 1 %}" class="ml active" >我的招聘会</a>
         <a href="{% url 'ssessionsAdd' %}" class="ml " >添加招聘会</a>
         <a href="{% url 'sessions' 1 %}" class="ml " >所有招聘会</a>
         <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a>
@@ -40,7 +40,7 @@
 		<div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
 			<div class="order-main">
 				<div class="type-tab-btn">
-					<a href="{% url 'volunteers_sessions' 1 %}" class="allOrder active col-20" data-type="-1">全部招聘会</a><i class="line hidden-xs hidden-sm">|</i>
+					<a href="{% url 'volunteers_sessions' 1 %}" class="allOrder active col-20" data-type="-1">我的招聘会</a><i class="line hidden-xs hidden-sm">|</i>
 					<a class="waitPay col-20" href="{% url 'ssessionsAdd' %}" data-type="0">添加招聘会<span class="amount _actAmount"></span></a><i class="line hidden-xs hidden-sm">|</i>
 					<a class="waitDeliver col-20" href="{% url 'sessions' 1 %}" data-type="1">所有招聘会</a><i class="line hidden-xs hidden-sm">|</i>
 					<!-- <a class="hasDeliver col-20" href="javascript:;" data-type="2">已发货</a><i class="line hidden-xs hidden-sm">|</i>
@@ -85,21 +85,25 @@
   										<div class="shop j-shop j-amLight">
   											{% for enterprise in session.detaillist %}
   											<div class="item b-t clearfix j-item j-iamMain" style="height:110px;">
-  												<a class="productDetail nameWidth col-xs-4 col-sm-4" href="{% url 'enterprises' 1 %}" target="_blank">
-                            <img src="/static/qr_pics/{{session.qr_imgname}}" style="width:75px;height:75px" class="f-fl"/>
-  												</a>
+
   											  <div class="describe f-fl col-xs-8 col-sm-8">
   													<div class="vertic clearfix">
   														<span class="clearfix">
-  															<!-- <a class="productDetail nameWidth" href="#" target="_blank">
-  															  <i>{{ session.enterprise }}</i>
-                                </a> -->
   															<p>
   															{{ session.summary }}
   															</p>
+
   														</span>
   													</div>
   												</div>
+                          <div class="productDetail nameWidth col-xs-4 col-sm-4">
+                            <a href="{% url 'index' session.id %}">
+                              <img src="/static/qr_pics/{{session.qr_imgname}}" style="width:75px;height:75px" class="f-fl"/>
+                            </a>
+                            <a href="/static/qr_pics/{{session.qr_imgname}}" target="_blank">
+                              <i class="f-fl" style="color:#00c3f5;">下载二维码</i>
+                            </a>
+                          </div>
   											</div>
   										</div>
   									</div>

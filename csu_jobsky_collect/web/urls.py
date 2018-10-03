@@ -4,7 +4,8 @@ from web.views import enterprises,students,index,sessions,volunteers
 
 urlpatterns = [
 	#主页
-    url(r'^$', enterprises.index,name="index"),
+    url(r'^$', index.login, name="login"),
+    url(r'^(?P<sid>[0-9]+)$', enterprises.index,name="index"),
 
     # 企业信息管理路由
     url(r'^enterprises/(?P<pIndex>[0-9]+)$', enterprises.enterprises, name="enterprises"),		#浏览企业信息、数据分页
