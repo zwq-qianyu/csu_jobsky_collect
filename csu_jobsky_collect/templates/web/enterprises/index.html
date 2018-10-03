@@ -31,19 +31,21 @@
 					<!-- <th>操  作</th> -->
 				</tr>
 				{% for enterprise in enterpriseslist %}
-					<tr>
-						<td>{{enterprise.enterprise}}</td>
-						<td>{{enterprise.start_time|date:'Y-m-d  h:i'}}</td>
-						<td>{{enterprise.place}}</td>
-						<td>{{enterprise.contacts}}</td>
-						<td>{{enterprise.phone}}</td>
-						<!-- <td>
-							<a href="{% url 'enterprisesEdit' enterprise.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
+					{% for detail in enterprise.detaillist %}
+						<tr>
+							<td>{{detail.enterprise}}</td>
+							<td>{{detail.start_time|date:'Y-m-d  h:i'}}</td>
+							<td>{{detail.place}}</td>
+							<td>{{enterprise.contacts}}</td>
+							<td>{{enterprise.phone}}</td>
+							<!-- <td>
+								<a href="{% url 'enterprisesEdit' enterprise.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
 
-							<a href="javascript:doDel('{% url 'enterprisesDelete' enterprise.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
+								<a href="javascript:doDel('{% url 'enterprisesDelete' enterprise.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
 
-						</td> -->
-					</tr>
+							</td> -->
+						</tr>
+					{% endfor %}
 				{% endfor %}
 			</table>
 			<br>

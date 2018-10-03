@@ -86,15 +86,14 @@
   											{% for enterprise in session.detaillist %}
   											<div class="item b-t clearfix j-item j-iamMain" style="height:110px;">
   												<a class="productDetail nameWidth col-xs-4 col-sm-4" href="{% url 'enterprises' 1 %}" target="_blank">
-                            <img src="/static/goods/s_{{enterprise.picname}}" style="width:75px;height:75px" class="f-fl"/>
+                            <img src="/static/qr_pics/{{session.qr_imgname}}" style="width:75px;height:75px" class="f-fl"/>
   												</a>
   											  <div class="describe f-fl col-xs-8 col-sm-8">
   													<div class="vertic clearfix">
   														<span class="clearfix">
-  															<a class="productDetail nameWidth" href="#" target="_blank">
+  															<!-- <a class="productDetail nameWidth" href="#" target="_blank">
   															  <i>{{ session.enterprise }}</i>
-                                  <!-- <i>{{ enterprise.contacts }}</i> -->
-                                </a>
+                                </a> -->
   															<p>
   															{{ session.summary }}
   															</p>
@@ -128,10 +127,8 @@
   									</div>
   								</td>
   								<td class="w125 center opreat b-t hidden-xs hidden-sm">
-  									<ul>
-  										<li class="more"><a href="#" target="_blank">查看详情</a></li>
-                      <li class="more"><a href="#" target="_blank">二维码下载</a></li>
-  									</ul>
+                    <button type="button" class="btn btn-success btn-sm"><a href="{% url 'sessionsEdit' session.id %}" style="color:white;">编辑</a></button>
+                    <button type="button" class="btn btn-danger btn-sm" id="delete_session"><a href="{% url 'sessionsDelete' session.id %}" style="color:white;">删除</a></button>
   								</td>
                   {% endfor %}
   							</tr>

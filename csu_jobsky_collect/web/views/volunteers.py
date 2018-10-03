@@ -48,7 +48,7 @@ def odstate(request):
         ob.place = request.GET['place']
         ob.start_time = request.GET['start_time']
         ob.save()
-        return redirect(reverse('vip_orders'))
+        return redirect(reverse('volunteers_sessions'))
     except Exception as err:
         print(err)
         return HttpResponse("信息修改失败！")

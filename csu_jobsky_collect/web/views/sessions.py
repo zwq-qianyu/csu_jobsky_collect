@@ -2,7 +2,17 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from common.models import Sessions,Enterprises
-import os
+import time,os
+from MyQR import myqr
+
+# 网址、保存的二维码名字、保存地址
+def generate_qr(site, saveName, saveDir):
+    """生成二维码"""
+    myqr.run(
+        words=site,
+		save_dir=saveDir,
+		save_name=saveName,
+		)
 
 # Create your views here.
 def index(request):
@@ -41,22 +51,29 @@ def sessionsAdd(request):
 def sessionsInsert(request):
     '''执行招聘会信息的上传插入'''
     try:
+        # 创建招聘会信息
         session = Sessions()
         session.uid = request.POST['uid']
         session.enterprise = request.POST['enterprise']
         session.start_time = request.POST['start_time']
         session.place = request.POST['place']
         session.volunteer = request.POST['volunteer']
-        if session.summary:
-            session.summary = request.POST['summary']
         if session.qr_imgname:
             session.qr_imgname = request.POST['qr_imgname']
         session.save()
         print(session.id)
+        # 创建相关企业信息
         enterprise = Enterprises()
         enterprise.uid = request.POST['uid']
         enterprise.session_id = session.id
         enterprise.save()
+        # 生成二维码并保存
+        site_name = "csu.runtofuture.cn/"+str(session.id) #网址
+        qr_imgname = str(time.time())+"u"+str(session.uid)+"i"+str(session.id)+".png" #二维码名字
+        destination = "./static/qr_pics/"   #存放二维码的地址
+        generate_qr(site_name, qr_imgname, destination)
+        session.qr_imgname = qr_imgname
+        session.save()
         context = {"info":"招聘会添加成功！"}
     except Exception as e:
         print(e)
@@ -68,8 +85,10 @@ def sessionsInsert(request):
 def sessionsDelete(request,sid):
     try:
         #找到对应的招聘会对象
-        ob = Sessions.objects.get(id=sid)
-        ob.delete()
+        sob = Sessions.objects.get(id=sid)
+        sob.delete()
+        eob = Enterprises.objects.get(session_id=sid)
+        eob.delete()
         context = {"info":"删除成功！"}
     except Exception as e:
         print(e)
