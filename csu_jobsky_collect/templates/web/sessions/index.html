@@ -35,7 +35,7 @@
 
     <div class="main clearfix">
         <!-- 左侧导航 -->
-        <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm span3">
+        <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
             <div class="nav-main">
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
                 <a href="{% url 'volunteers_sessions' %}" class="ml " >企业信息</a>
@@ -52,7 +52,7 @@
         </div><!-- 左侧导航 E-->
 
         <!-- 右侧内容展示 -->
-        <div class="span9">
+        <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
             <!-- 主体开始 -->
             <h2>
                 所有招聘会浏览
@@ -60,7 +60,7 @@
             <br>
             <form class="form-inline" action="{% url 'sessions' 1 %}" method="get">
               <label>关键字：</label>
-              <input type="text" name="keyword" value="{{request.GET.keyword}}" class="form-control input-small" placeholder="商品名称">
+              <input type="text" name="keyword" value="{{request.GET.keyword}}" class="form-control input-small" placeholder="志愿者或企业">
               <button type="submit" class="btn btn-default">搜索</button>
               <a href="{% url 'sessions' 1 %}" class="btn btn-default" role="button">全部</a>
             </form>
