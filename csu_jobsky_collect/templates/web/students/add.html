@@ -29,49 +29,53 @@
 <body class="all_bgcolor">
 	<center>
 		<h3>添加学生信息</h3>
-
-		<form method="post" action="{% url 'studentsInsert' %}" enctype="multipart/form-data" class="form">
+		<form method="post" action="{% url 'studentsInsert' session.id %}" enctype="multipart/form-data" class="form">
 			{% csrf_token %}
-		  <div class="form-group row">
-		    <label for="name" class="col-sm-3 col-form-label">姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 名：</label>
-				<div class="col-sm-9">
-		    	<input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
-				</div>
-		  </div>
-		  <div class="form-group row">
-		    <label for="school" class="col-sm-3 col-form-label">学 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 校：</label>
-				<div class="col-sm-9">
-		    	<input type="text" name="school" class="form-control" id="school" placeholder="学  校">
+			<div class="form-group row">
+		    <label for="enterprise" class="col-sm-4 col-form-label">企  业：</label>
+				<div class="col-sm-8">
+		    	<input type="text" disabled name="enterprise" class="form-control" id="enterprise" value="{{ session.enterprise }}">
 				</div>
 		  </div>
 			<div class="form-group row">
-		    <label for="major" class="col-sm-3 col-form-label">专 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 业：</label>
-				<div class="col-sm-9">
-		    	<input type="text" name="major" class="form-control" id="major" placeholder="专  业">
+		    <label for="start_time" class="col-sm-4 col-form-label">宣讲时间：</label>
+				<div class="col-sm-8">
+		    	<input type="text" disabled name="start_time" class="form-control" id="start_time" value="{{ session.start_time }}">
 				</div>
 		  </div>
 			<div class="form-group row">
-		    <label for="enterprise" class="col-sm-3 col-form-label">宣讲企业：</label>
-				<div class="col-sm-9">
-		    	<input type="text" name="enterprise" class="form-control" id="enterprise" placeholder="宣讲企业">
+		    <label for="place" class="col-sm-4 col-form-label">宣讲地点：</label>
+				<div class="col-sm-8">
+		    	<input type="text" disabled name="place" class="form-control" id="place" value="{{ session.place }}">
 				</div>
 		  </div>
 			<div class="form-group row">
-		    <label for="place" class="col-sm-3 col-form-label">宣讲地点：</label>
-				<div class="col-sm-9">
-		    	<input type="text" name="place" class="form-control" id="place" placeholder="宣讲地点">
+		    <label for="school" class="col-sm-4 col-form-label">学校：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="school" class="form-control" id="school" placeholder="学校">
 				</div>
 		  </div>
 			<div class="form-group row">
-		    <label for="time" class="col-sm-3 col-form-label">宣讲时间：</label>
-				<div class="col-sm-9">
-					<input class="flatpickr mycalendar form-control" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始日期" >
+		    <label for="major" class="col-sm-4 col-form-label">专业：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="major" class="form-control" id="major" placeholder="专业">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="stu_name" class="col-sm-4 col-form-label">姓名：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="stu_name" class="form-control" id="stu_name" placeholder="姓名">
+				</div>
+		  </div>
+			<div class="form-group row">
+		    <label for="phone" class="col-sm-4 col-form-label">联系方式：</label>
+				<div class="col-sm-8">
+		    	<input type="text" name="phone" class="form-control" id="phone" placeholder="phone number">
 				</div>
 		  </div>
 			<input type="submit" value="确认" class="btn btn-primary">
 			<input type="reset" value="重置" class="btn btn-primary">
 			<br>
-			<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your info with anyone else.</small> -->
 		</form>
 	</center>
 	<!-- 初始化  日期时间插件 flatpickr.js -->

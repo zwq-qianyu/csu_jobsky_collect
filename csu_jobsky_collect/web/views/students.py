@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
-from common.models import Students
+from common.models import Students,Sessions
 import os
 
 # Create your views here.
@@ -13,8 +13,12 @@ def index(request):
 def students(request,pIndex):
     #获取学生信息
     lists = Students.objects.all()
+    #遍历订单信息，查询对应的详情信息
+    for stu in lists:
+        stulist = Sessions.objects.filter(id=stu.session_id)
+        stu.detaillist = stulist
     #分页封装信息
-    p = Paginator(lists,5)
+    p = Paginator(lists,10)
     if pIndex == "":
         pIndex="1"
     list2 = p.page(pIndex)
@@ -23,21 +27,24 @@ def students(request,pIndex):
     return render(request,"web/students/index.html",context)
 
 
-def studentsAdd(request):
+def studentsAdd(request,sid):
+    # student = Students.objects.get(session_id=sid)
+    session = Sessions.objects.get(id=sid)
+    # print(session.id)
+    context = {"session": session}
     #加载添加表单
-    return render(request,"web/students/add.html")
+    return render(request,"web/students/add.html",context)
 
 
-def studentsInsert(request):
+def studentsInsert(request,sid):
     '''执行学生信息的上传插入'''
     try:
         student = Students()
-        student.stu_name = request.POST['name']
+        student.session_id = sid
         student.school = request.POST['school']
         student.major = request.POST['major']
-        student.enterprise = request.POST['enterprise']
-        student.start_time = request.POST['start_time']
-        student.place = request.POST['place']
+        student.stu_name = request.POST['stu_name']
+        student.phone = request.POST['phone']
         student.save()
         context = {"info":"添加成功！"}
     except Exception as e:
@@ -74,12 +81,10 @@ def studentsUpdate(request):
     print(request.POST['id'])
     try:
         student = Students.objects.get(id=request.POST['id'])
-        student.stu_name = request.POST['name']
         student.school = request.POST['school']
         student.major = request.POST['major']
-        student.enterprise = request.POST['enterprise']
-        student.start_time = request.POST['start_time']
-        student.place = request.POST['place']
+        student.stu_name = request.POST['name']
+        student.phone = request.POST['phone']
         student.save()
         context = {"info":"修改成功！"}
     except Exception as e:

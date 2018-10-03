@@ -46,10 +46,11 @@ class Enterprises(models.Model):
 
 
 class Students(models.Model):
-	school = models.CharField(max_length=100)
-	major = models.CharField(max_length=100)
-	stu_name = models.CharField(max_length=32)
-	phone = models.CharField(max_length=16)
+    session_id = models.IntegerField()
+    school = models.CharField(max_length=100)
+    major = models.CharField(max_length=100)
+    stu_name = models.CharField(max_length=32)
+    phone = models.CharField(max_length=16)
 
-	class Meta:
-		db_table = "student"
+    class Meta:
+        db_table = "student"
