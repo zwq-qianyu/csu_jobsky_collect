@@ -5,6 +5,7 @@ from common.models import Sessions,Enterprises
 from django.db.models import Q
 import time,os
 from MyQR import myqr
+from django.conf import settings
 
 # 网址、保存的二维码名字、保存地址
 def generate_qr(site, saveName, saveDir):
@@ -82,7 +83,7 @@ def sessionsInsert(request):
         enterprise.session_id = session.id
         enterprise.save()
         # 生成二维码并保存
-        site_name = DOMAIN+"/"+str(session.id) #网址
+        site_name = "http://" + settings.DOMAIN + "/" + str(session.id) #网址
         qr_imgname = str(time.time())+"u"+str(session.uid)+"i"+str(session.id)+".png" #二维码名字
         destination = "./static/qr_pics/"   #存放二维码的地址
         generate_qr(site_name, qr_imgname, destination)
