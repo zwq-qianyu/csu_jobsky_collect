@@ -18,12 +18,18 @@ def students(request,pIndex):
         stulist = Sessions.objects.filter(id=stu.session_id)
         stu.detaillist = stulist
     #分页封装信息
+    pIndex = int(pIndex)
     p = Paginator(lists,10)
-    if pIndex == "":
-        pIndex="1"
+    maxpages = p.num_pages #最大页数
+    #判断页数是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
     list2 = p.page(pIndex)
     plist = p.page_range
-    context = {"studentslist":list2,"plist":plist,"pIndex":int(pIndex)}
+
+    context = {"studentslist":list2,"plist":plist,"pIndex":pIndex}
     return render(request,"web/students/index.html",context)
 
 

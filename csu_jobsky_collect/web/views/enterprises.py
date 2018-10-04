@@ -21,14 +21,18 @@ def enterprises(request,pIndex):
         enlist = Sessions.objects.filter(id=en.session_id)
         en.detaillist = enlist
     #分页封装信息
+    pIndex = int(pIndex)
     p = Paginator(lists,10)
-    if pIndex == "":
-        pIndex="1"
+    maxpages = p.num_pages #最大页数
+    #判断页数是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
     list2 = p.page(pIndex)
-    print("list2")
-    print(list2)
     plist = p.page_range
-    context = {"enterpriseslist":list2,"plist":plist,"pIndex":int(pIndex)}
+
+    context = {"enterpriseslist":list2,"plist":plist,"pIndex":pIndex}
     return render(request,"web/enterprises/index.html",context)
 
 

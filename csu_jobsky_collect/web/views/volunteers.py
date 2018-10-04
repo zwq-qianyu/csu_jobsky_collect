@@ -31,12 +31,17 @@ def  volun_sessions(request,pIndex):
 
     # context['sessionslist'] = selist
     # #分页封装信息
+    pIndex = int(pIndex)
     p = Paginator(selist,5)
-    if pIndex == "":
-        pIndex="1"
+    maxpages = p.num_pages #最大页数
+    #判断页数是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
     list2 = p.page(pIndex)
     plist = p.page_range
-    context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
+    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex}
     return render(request,"web/volunteers/volun_sessions.html",context)
 
 def odstate(request):

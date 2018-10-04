@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator
@@ -13,7 +14,8 @@ def login(request):
     try:
         # 如果登录过了，直接跳转到个人信息页
         if request.session['volunteers']:
-            return redirect(reverse('volunteers_info'))
+            return HttpResponseRedirect(reverse('volunteers_sessions', kwargs={'pIndex': 1}))
+            # return redirect(reverse('volunteers_info'))
     except Exception as err:
         print(err)
     return render(request,'web/login.html')
