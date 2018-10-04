@@ -6,79 +6,188 @@
 	<title>学生信息浏览</title>
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
-	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<!-- bootstrap -->
+	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'web/css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="{% static 'web/js/jquery-1.12.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'web/js/topNav.js' %}?id=12343456"></script>
 
 	<link rel="stylesheet" href="/static/web/css/header.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'web/css/global.css' %}">
 	<style type="text/css">
-		table{text-align: center;border-collapse: collapse;}
-		table,th,td{border: 1px solid black;}
-		td button{
-			margin-top: 5px;
-			margin-bottom: 5px;
+		table{
+			text-align: center;
+			border-collapse: collapse;
+			margin: 30px;
+			color: black;
+			font-size: 16px;;
+		}
+		table,th,td{
+			text-align: center;
+		}
+		td,th {
+			line-height: 2 !important;
 		}
 		#navigation{
 			margin-top: 40px;
 		}
+		#table_content{
+			position: relative;
+			width: 90%;
+		}
+		h1, h2, h3, h4 {
+			color: black;
+		}
 	</style>
 </head>
 <body>
+	<!-- 导航 -->
+	<div class="layout-header" id="scroll-wrap">
+		<nav class="navbar navbar-default navbar-fixed-top header hidden-xs hidden-sm">
+			<div class="container clearfix">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="layout-header-logo navbar-left">
+							<a href="{% url 'enterprises' 1 %}" class="layout-header-logo-link" alt="中南大学">
+								<img src="{% static 'web/img/logo.png' %}">
+							</a>
+					</div>
+					<ul class="nav navbar-nav navbar-right layout-header-service clearfix">
+							<li class="layout-header-service-item" id="layoutHeaderUser">
+								<a class="layout-header-service-link g-user" style="background: #fff;width:auto;" href="#">
+									<i class="glyphicon glyphicon-user"></i>
+									<span>{{request.session.volunteers.username}}</span>
+								</a>
+								<div class="layout-user-downmenu">
+									<ul class="layout-user-downmenu-list">
+									{% if request.session.volunteers %}
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'volunteers_sessions' 1 %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">招聘会</a>
+										</li>
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'volunteers_info' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_myorder">个人中心</a>
+										</li>
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'logout' %}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_mformy">退出</a>
+										</li>
+									{% else %}
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'login'%}" class="layout-user-downmenu-link">立即登录</a>
+										</li>
+										<li class="layout-user-downmenu-item">
+											<a href="{% url 'register'%}" class="layout-user-downmenu-link" data-mtype="wmz_public_grzx_register">立即注册</a>
+										</li>
+									{% endif %}
+									</ul>
+								</div>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right layout-header-nav clearfix">
+						<li class="layout-header-nav-item">
+							<a href="{% url 'volunteers_sessions' 1 %}" class="layout-header-nav-link"> 招聘会 </a><p class="line-top hidden-xs"></p>
+						</li>
+					</ul>
+				</div>
+				 <!-- /.navbar-collapse -->
+			</div>
+		</nav>
+		<!-- 移动端结构 -->
+		<div class="scroll-view">
+			<header id="header" class="header">
+				<div class="logo">
+					<a href="{% url 'enterprises' 1 %}">
+							<img src="{% static 'web/img/app/mlogo1.jpg' %}">
+					</a>
+				</div>
+
+				<div class="qtool">
+						<a id="btn-search"><i class="glyphicon  glyphicon-search"></i></a>
+						<a href="#"><i class="glyphicon  glyphicon-shopping-cart"></i></a>
+						<a id="user-name" href="#"><i class="glyphicon glyphicon-user"></i></a>
+				</div>
+			</header>
+		</div>
+	</div><!-- 导航 E-->
+
 	<center>
-		<h2>中南大学招聘信息</h2>
+		<!-- <h2>中南大学招聘信息</h2> -->
 			<div class="type-tab-btn">
 				<a href="{% url 'enterprises' 1 %}" class="col-20" data-type="-1">企业信息</a><i class="line hidden-xs hidden-sm">|</i>
 				<a class="active col-20" href="{% url 'students' 1 %}" data-type="1">学生信息</a><i class="line hidden-xs hidden-sm">|</i>
 			</div>
 			<br>
-			<h3>浏览学生信息</h3>
-			<table width="90%;">
-				<tr>
-					<th>学生姓名</th>
-					<th>学  校</th>
-					<th>专  业</th>
-					<th>宣讲会企业名称</th>
-					<th>宣讲时间</th>
-					<th>宣讲地点</th>
-					<!-- <th>操  作</th> -->
-				</tr>
-				{% for student in studentslist %}
-					{% for detail in student.detaillist %}
-						<tr>
-							<td>{{student.stu_name}}</td>
-							<td>{{student.school}}</td>
-							<td>{{student.major}}</td>
-							<td>{{detail.enterprise}}</td>
-							<td>{{detail.start_time|date:'Y-m-d  h:i'}}</td>
-							<td>{{detail.place}}</td>
-							<!-- <td>
-								<a href="{% url 'studentsEdit' student.id %}"><button type="button" class="btn btn-outline-success">编&nbsp;&nbsp;&nbsp;辑</button></a>
-								<a href="javascript:doDel('{% url 'studentsDelete' student.id %}');"><button type="button" class="btn btn-outline-danger">删&nbsp;&nbsp;&nbsp;除</button></a>
-							</td> -->
-						</tr>
+			<div id="table_content">
+				<h3>浏览学生信息</h3>
+				<table class="table table-bordered table-hover">
+					<tr>
+						<th>学生姓名</th>
+						<th>学  校</th>
+						<th>专  业</th>
+						<th>联系方式</th>
+						<th>企业名称</th>
+						<th>宣讲时间</th>
+						<th>宣讲地点</th>
+						<!-- <th>操  作</th> -->
+					</tr>
+					{% for student in studentslist %}
+						{% if student.detaillist %}
+							{% for detail in student.detaillist %}
+								<tr>
+									<td>{{student.stu_name}}</td>
+									<td>{{student.school}}</td>
+									<td>{{student.major}}</td>
+									<td>{{student.phone}}</td>
+									<td>{{detail.enterprise}}</td>
+									<td>{{detail.start_time|date:'Y-m-d  h:i'}}</td>
+									<td>{{detail.place}}</td>
+								</tr>
+							{% endfor %}
+							{% else %}
+							<tr>
+								<td>{{student.stu_name}}</td>
+								<td>{{student.school}}</td>
+								<td>{{student.major}}</td>
+								<td>{{student.phone}}</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						{% endif %}
 					{% endfor %}
-				{% endfor %}
-			</table>
-			<br>
-			<nav aria-label="Page navigation example" id="navigation">
-			  <ul class="pagination justify-content-center">
-			    <li class="page-item">
-			      <a class="page-link" href="{% url 'students' pIndex|add:-1 %}" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			        <span class="sr-only">Previous</span>
-			      </a>
-			    </li>
-					{% for p in plist %}
-					<li class="page-item {% if pIndex == p %} active{% endif %}"><a class="page-link" href="{% url 'students' p %}">{{p}}</a></li>
-					{% endfor %}
-			    <li class="page-item">
-			      <a class="page-link" href="{% url 'students' pIndex|add:1 %}" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			        <span class="sr-only">Next</span>
-			      </a>
-			    </li>
-			  </ul>
-			</nav>
+				</table>
+				<br>
+				<nav aria-label="Page navigation example" id="navigation">
+				  <ul class="pagination justify-content-center">
+				    <li class="page-item">
+				      <a class="page-link" href="{% url 'students' pIndex|add:-1 %}" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				        <span class="sr-only">Previous</span>
+				      </a>
+				    </li>
+						{% for p in plist %}
+						<li class="page-item {% if pIndex == p %} active{% endif %}"><a class="page-link" href="{% url 'students' p %}">{{p}}</a></li>
+						{% endfor %}
+				    <li class="page-item">
+				      <a class="page-link" href="{% url 'students' pIndex|add:1 %}" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				        <span class="sr-only">Next</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
 	</center>
+	<!-- 返回顶部 -->
+  <div class="layout-magnet layout-magnet-show">
+    <div class="layout-magnet-item layout-magnet-item-top">
+      <a href="javascript:void(0);" class="layout-magnet-link" data-mtype="wmz_public_cbxf_top">
+        <div class="layout-magnet-icon">
+          <i class="glyphicon glyphicon-menu-up"></i>
+        </div>
+      </a>
+    </div>
+  </div><!-- 返回顶部 E-->
 
 	<!-- js样式  -->
 	<script type="text/javascript">
@@ -89,5 +198,15 @@
 			}
 		}
 	</script>
+
+  <script type="text/javascript">
+  //回顶部
+   backTop();
+  //顶部导航鼠标经过出现内容
+   topNav();
+  //登录图片鼠标经过
+   topLogin();
+  </script>
+	<script src="{% static 'web/js/site.js' %}"></script>
 </body>
 </html>

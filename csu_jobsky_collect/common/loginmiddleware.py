@@ -23,7 +23,7 @@ class LoginMiddleware(object):
                 return redirect(reverse('myadmin_login'))
 
         # 网站前台会员登录判断
-        if re.match("^/volunteers",path) or re.match("^/sessions",path):
+        if re.match("^/volunteers",path) or re.match("^/sessions",path) or re.match("^/students/[0-9]+$",path) or re.match("^/enterprises/[0-9]+$",path):
             # 判断当前会员是否没有登录
             if "volunteers" not in request.session:
                 # 执行登录界面跳转

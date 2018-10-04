@@ -65,15 +65,15 @@ def enterprisesInsert(request,sid):
     return render(request,"./web/enterprises/info.html",context)
 
 
-def enterprisesDelete(request,sid):
-    try:
-        #找到对应的企业对象
-        ob = Enterprises.objects.get(session_id=sid)
-        ob.delete()
-        context = {"info":"删除成功！"}
-    except Exception as e:
-        context = {"info":"删除失败！"}
-    return render(request,"./web/enterprises/info.html",context)
+# def enterprisesDelete(request,sid):
+#     try:
+#         #找到对应的企业对象
+#         ob = Enterprises.objects.get(session_id=sid)
+#         ob.delete()
+#         context = {"info":"删除成功！"}
+#     except Exception as e:
+#         context = {"info":"删除失败！"}
+#     return render(request,"./web/enterprises/info.html",context)
 
 
 def enterprisesEdit(request,sid):

@@ -14,23 +14,28 @@ def students(request,pIndex):
     #获取学生信息
     lists = Students.objects.all()
     #遍历订单信息，查询对应的详情信息
-    for stu in lists:
-        stulist = Sessions.objects.filter(id=stu.session_id)
-        stu.detaillist = stulist
-    #分页封装信息
-    pIndex = int(pIndex)
-    p = Paginator(lists,10)
-    maxpages = p.num_pages #最大页数
-    #判断页数是否越界
-    if pIndex > maxpages:
-        pIndex = maxpages
-    if pIndex < 1:
-        pIndex = 1
-    list2 = p.page(pIndex)
-    plist = p.page_range
+    try:
+        for stu in lists:
+            stulist = Sessions.objects.filter(id=stu.session_id)
+            stu.detaillist = stulist
+    except Exception as err:
+        print(err)
+    finally:
+        #分页封装信息
+        pIndex = int(pIndex)
+        p = Paginator(lists,10)
+        maxpages = p.num_pages #最大页数
+        #判断页数是否越界
+        if pIndex > maxpages:
+            pIndex = maxpages
+        if pIndex < 1:
+            pIndex = 1
+        list2 = p.page(pIndex)
 
-    context = {"studentslist":list2,"plist":plist,"pIndex":pIndex}
-    return render(request,"web/students/index.html",context)
+        plist = p.page_range
+
+        context = {"studentslist":list2,"plist":plist,"pIndex":pIndex}
+        return render(request,"web/students/index.html",context)
 
 
 def studentsAdd(request,sid):
@@ -60,40 +65,40 @@ def studentsInsert(request,sid):
     return render(request,"./web/students/info.html",context)
 
 
-def studentsDelete(request,uid):
-    try:
-        #找到对应的学生对象
-        ob = Students.objects.get(id=uid)
-        ob.delete()
-        context = {"info":"删除成功！"}
-    except Exception as e:
-        print(e)
-        context = {"info":"删除失败！"}
-    return render(request,"./web/students/info.html",context)
-
-
-def studentsEdit(request,uid):
-    try:
-        ob = Students.objects.get(id=uid)
-        context={"student":ob}
-        return render(request,"web/students/edit.html",context)
-    except Exception as e:
-        print(e)
-        context = {"info":"没有找到要修改的信息！"}
-        return render(request,"web/students/info.html",context)
-
-
-def studentsUpdate(request):
-    print(request.POST['id'])
-    try:
-        student = Students.objects.get(id=request.POST['id'])
-        student.school = request.POST['school']
-        student.major = request.POST['major']
-        student.stu_name = request.POST['name']
-        student.phone = request.POST['phone']
-        student.save()
-        context = {"info":"修改成功！"}
-    except Exception as e:
-        print(e)
-        context = {"info":"修改失败！"}
-    return render(request,"web/students/info.html",context)
+# def studentsDelete(request,uid):
+#     try:
+#         #找到对应的学生对象
+#         ob = Students.objects.get(id=uid)
+#         ob.delete()
+#         context = {"info":"删除成功！"}
+#     except Exception as e:
+#         print(e)
+#         context = {"info":"删除失败！"}
+#     return render(request,"./web/students/info.html",context)
+#
+#
+# def studentsEdit(request,uid):
+#     try:
+#         ob = Students.objects.get(id=uid)
+#         context={"student":ob}
+#         return render(request,"web/students/edit.html",context)
+#     except Exception as e:
+#         print(e)
+#         context = {"info":"没有找到要修改的信息！"}
+#         return render(request,"web/students/info.html",context)
+#
+#
+# def studentsUpdate(request):
+#     print(request.POST['id'])
+#     try:
+#         student = Students.objects.get(id=request.POST['id'])
+#         student.school = request.POST['school']
+#         student.major = request.POST['major']
+#         student.stu_name = request.POST['name']
+#         student.phone = request.POST['phone']
+#         student.save()
+#         context = {"info":"修改成功！"}
+#     except Exception as e:
+#         print(e)
+#         context = {"info":"修改失败！"}
+#     return render(request,"web/students/info.html",context)
