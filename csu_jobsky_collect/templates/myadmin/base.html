@@ -8,6 +8,7 @@
 		<link href="{% static 'myadmin/css/bootstrap.min.css' %}" rel="stylesheet">
 		<link href="{% static 'myadmin/css/bootstrap-responsive.min.css' %}" rel="stylesheet">
 		<link href="{% static 'myadmin/css/site.css' %}" rel="stylesheet">
+		<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
 		<!--[if lt IE 9]><script src="{% static 'myadmin/js/html5.js' %}"></script><![endif]-->
 	</head>
 	<body>
@@ -86,13 +87,13 @@
 								<a href="{% url 'myadmin_index'%}"><i class="icon-white icon-home"></i> 首页</a>
 							</li>
               <li class="nav-header">
-								会员管理
+								人员管理
 							</li>
 							<li>
-								<a href="{% url 'myadmin_users_index' 1 %}"><i class="icon-folder-open"></i> 浏览会员</a>
+								<a href="{% url 'myadmin_users_index' 1 %}"><i class="icon-folder-open"></i> 人员浏览</a>
 							</li>
 							<li>
-								<a href="{% url 'myadmin_users_add' %}"><i class="icon-check"></i> 添加会员</a>
+								<a href="{% url 'myadmin_users_add' %}"><i class="icon-check"></i> 添加人员</a>
 							</li>
 							<li class="divider">
 							</li>
