@@ -15,7 +15,7 @@
 	<!-- 日期时间插件 flatpickr.js 结束 -->
 	<style media="screen">
 		.form{
-			width: 70%;
+			width: 60%;
 		}
 		h3{
 			margin-top: 50px;
@@ -33,43 +33,43 @@
 			{% csrf_token %}
 			<div class="form-group row">
 		    <label for="enterprise" class="col-sm-4 col-form-label">企  业：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" disabled name="enterprise" class="form-control" id="enterprise" value="{{ session.enterprise }}">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="start_time" class="col-sm-4 col-form-label">宣讲时间：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" disabled name="start_time" class="form-control" id="start_time" value="{{ session.start_time }}">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="place" class="col-sm-4 col-form-label">宣讲地点：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" disabled name="place" class="form-control" id="place" value="{{ session.place }}">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="school" class="col-sm-4 col-form-label">学校：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" name="school" class="form-control" id="school" placeholder="学校">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="major" class="col-sm-4 col-form-label">专业：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" name="major" class="form-control" id="major" placeholder="专业">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="stu_name" class="col-sm-4 col-form-label">姓名：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" name="stu_name" class="form-control" id="stu_name" placeholder="姓名">
 				</div>
 		  </div>
 			<div class="form-group row">
 		    <label for="phone" class="col-sm-4 col-form-label">联系方式：</label>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 		    	<input type="text" name="phone" class="form-control" id="phone" placeholder="phone number">
 				</div>
 		  </div>

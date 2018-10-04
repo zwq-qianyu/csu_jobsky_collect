@@ -1,0 +1,42 @@
+h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.type-tab-btn {
+  height:41px;
+  margin-top:20px;
+  border-bottom:solid 1px #eee
+}
+.type-tab-btn .line {
+  color:#eee;
+  font-size:12px;
+  display:inline-block
+}
+.type-tab-btn a {
+  text-decoration:none;
+  color:#666;
+  display:inline-block;
+  line-height:30px;
+  width:100px;
+  text-align:center;
+  padding-bottom:10px;
+  font-size:18px;
+  font-weight:700;
+  margin:0 20px
+}
+.type-tab-btn a .amount {
+  display:inline-block;
+  background:#f56313;
+  color:#fff;
+  padding:0 2px;
+  line-height:12px;
+  font-size:12px;
+  border-radius:3px;
+  position:absolute;
+  margin-left:2px;
+  font-weight:400
+}
+.type-tab-btn .active,.type-tab-btn a:hover {
+  color:#00c3f5;
+  border-bottom:solid 2px #00c3f5
+}

@@ -5,10 +5,10 @@
 	<meta charset="UTF-8">
 	<title>学生信息修改表单</title>
 	<meta name="viewport" content="width=device-width">
-	<!-- <link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
-	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+	<link rel="icon" type="image/icon" href="http://jobsky.csu.edu.cn/favicon.png">
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<!-- 日期时间插件 flatpickr.js -->
 	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
@@ -28,7 +28,6 @@
 </head>
 <body>
 	<center>
-		{% include "web/header.html" %}
 		<h3>修改学生信息</h3>
 		<form method="post" action="{% url 'studentsUpdate' %}" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="{{student.id}}">

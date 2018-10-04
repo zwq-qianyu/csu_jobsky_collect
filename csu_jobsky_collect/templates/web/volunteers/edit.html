@@ -4,6 +4,14 @@
 {% block mylink %}
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
+  <style media="screen">
+    .btn {
+      margin: 20px 40px;
+    }
+    form {
+      margin-left: 200px;
+    }
+  </style>
 {% endblock %}
 
 {% block mainbody %}
@@ -39,59 +47,47 @@
         <!-- 右侧内容展示 -->
         <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
             <!-- 主体开始 -->
-            <hr>
-            <form id="edit-profile" action="{% url 'volunteers_update' %}" class="form-horizontal" method="post">
-                {% csrf_token %}
-                <fieldset>
-                    <div style="margin-left: 100px;">
-                        <div class="control-group">
-                            <label class="control-label" for="input01">账号：</label>
-                            <div class="controls">
-                                <input type="text" disabled name="username" class="input-xlarge" id="input01" value="{{ volunteer.username }}" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">真实姓名：</label>
-                            <div class="controls">
-                                <input type="text" name="name" class="input-xlarge" id="input01" value="{{ volunteer.name }}" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">性别：</label>
-                            <div class="controls">
-                                <input type="radio" name="sex" class="input-xlarge" id="input01" value="1"
-                                {% if volunteer.sex == 1 %}checked{% endif %} /> 男
-                                <input type="radio" name="sex" class="input-xlarge" id="input01" value="0"
-                                {% if volunteer.sex == 0 %}checked{% endif %} /> 女
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">学号：</label>
-                            <div class="controls">
-                                <input type="text" name="student_id" class="input-xlarge" id="input01" value="{{ volunteer.student_id }}" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">电话：</label>
-                            <div class="controls">
-                                <input type="text" name="phone" class="input-xlarge" id="input01" value="{{ volunteer.phone }}" />
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="input01">email邮箱：</label>
-                            <div class="controls">
-                                <input type="text" name="email" class="input-xlarge" id="input01" value="{{ volunteer.email }}" />
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="form-actions">
-                        <div style="margin-left: 100px;">
-                        <button type="submit" class="btn btn-primary">保存</button>
-                        &emsp;&emsp;&emsp;<button type="reset" class="btn">重置</button>
-                        </div>
-                    </div>
-                </fieldset>
+            <h3>
+              修改个人信息
+            </h3>
+            <br>
+            <form id="edit-profile" action="{% url 'volunteers_update' %}" method="post" class="col-xs-6 col-sm-6">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="username">账号：</label>
+                <input type="text" disabled name="username" class="form-control" id="username" value="{{ volunteer.username }}" />
+              </div>
+              <div class="form-group">
+                <label for="name">真实姓名：</label>
+                <input type="text" name="name" class="form-control" id="name" value="{{ volunteer.name }}" />
+              </div>
+              <div class="form-group">
+                <label for="sex">性别：</label>
+                <div>
+                  <label class="radio-inline">
+                    <input type="radio" name="sex" id="sex" value="1" {% if volunteer.sex == 1 %}checked{% endif %} /> 男
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="sex" id="sex" value="0" {% if volunteer.sex == 0 %}checked{% endif %} /> 女
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="student_id">学号：</label>
+                <input type="text" name="student_id" class="form-control" id="student_id" value="{{ volunteer.student_id }}" />
+              </div>
+              <div class="form-group">
+                <label for="phone">电话：</label>
+                <input type="text" name="phone" class="form-control" id="phone" value="{{ volunteer.phone }}" />
+              </div>
+              <div class="form-group">
+                <label for="email">email邮箱：</label>
+                <input type="text" name="email" class="form-control" id="email" value="{{ volunteer.email }}" />
+              </div>
+              <center>
+                <button type="submit" class="btn btn-default">提交</button>
+                <button type="reset" class="btn btn-default">重置</button>
+              </center>
             </form>
             <!-- 主体结束 -->
         </div>
