@@ -86,7 +86,17 @@
 		<!-- 移动端结构 -->
 		<div class="scroll-view">
 			<header id="header" class="header">
-				<h2>请使用电脑端登录</h2>
+				<div class="logo">
+					<a href="{% url 'enterprises' 1 %}">
+							<img src="{% static 'web/img/app/mlogo1.jpg' %}">
+					</a>
+				</div>
+
+				<div class="qtool">
+						<a id="btn-search"><i class="glyphicon  glyphicon-search"></i></a>
+						<a href="#"><i class="glyphicon  glyphicon-shopping-cart"></i></a>
+						<a id="user-name" href="#"><i class="glyphicon glyphicon-user"></i></a>
+				</div>
 			</header>
 		</div>
 	</div><!-- 导航 E-->
