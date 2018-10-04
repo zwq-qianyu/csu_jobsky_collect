@@ -48,8 +48,8 @@
         <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
             <div class="nav-main">
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
-                <a href="{% url 'volunteers_sessions' 1 %}" class="ml " >我的招聘会</a>
-                <a href="{% url 'ssessionsAdd' %}" class="ml active" >添加招聘会</a>
+                <a href="{% url 'volunteers_sessions' 1 %}" class="ml active" >我的招聘会</a>
+                <a href="{% url 'ssessionsAdd' %}" class="ml " >添加招聘会</a>
                 <a href="{% url 'sessions' 1 %}" class="ml " >所有招聘会</a>
                 <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a>
                 <a href="{% url 'volunteers_info' %}" class="ml " >浏览信息</a>
@@ -64,37 +64,58 @@
         <!-- 右侧内容展示 -->
         <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
             <!-- 主体开始 -->
-            <div class="type-tab-btn">
-    					<a href="{% url 'volunteers_sessions' 1 %}" class="allOrder col-20" data-type="-1">我的招聘会</a><i class="line hidden-xs hidden-sm">|</i>
-    					<a class="active col-20" href="{% url 'ssessionsAdd' %}" data-type="0">添加招聘会<span class="amount _actAmount"></span></a><i class="line hidden-xs hidden-sm">|</i>
-    					<a class="col-20" href="{% url 'sessions' 1 %}" data-type="1">所有招聘会</a><i class="line hidden-xs hidden-sm">|</i>
-    					<!-- <a class="hasDeliver col-20" href="javascript:;" data-type="2">已发货</a><i class="line hidden-xs hidden-sm">|</i>
-    					<a class="other col-20" href="javascript:;" data-type="99">其他</a> -->
-    				</div>
+            <h3>{{session.id}}号招聘会编辑</h3>
             <br>
-            <form id="edit-profile" action="{% url 'sessionsInsert' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="uid" value="{{uid}}">
-                <input type="hidden" name="volunteer" value="{{volunteer}}">
+            <form id="edit-profile" action="{% url 'sessionsUpdate' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{session.id}}">
                 {% csrf_token %}
                 <!-- <legend>添加招聘会信息</legend> -->
                 <br>
                 <div class="form-group">
                   <label for="inputEnterprise" class="col-sm-2 control-label">企业名称</label>
                   <div class="col-sm-6">
-                    <input class="form-control" id="inputEnterprise" name="enterprise" placeholder="企业名称">
+                    <input class="form-control" id="inputEnterprise" name="enterprise" value="{{session.enterprise}}">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputPlace" class="col-sm-2 control-label">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</label>
                   <div class="col-sm-6">
-                    <input class="form-control" id="inputPlace" name="place" placeholder="地      点">
+                    <input class="form-control" id="inputPlace" name="place" value="{{session.place}}">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputStartTime" class="col-sm-2 control-label">开始时间</label>
                   <div class="col-sm-6">
-                    <input class="flatpickr mycalendar form-control" id="inputStartTime" name="start_time" data-enable-time="true" data-time_24hr="true" placeholder="开始时间" >
+                    <input class="flatpickr mycalendar form-control" id="inputStartTime" name="start_time" data-enable-time="true" data-time_24hr="true" value="{{session.start_time}}">
                   </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="input01">总结：</label>
+                  <!--<div class="controls">
+                      <textarea cols="40" style="width:450px" rows="10" name="content" value="{{ goods.content }}">
+                      </textarea>
+                  </div>-->
+                  <link rel="stylesheet" type="text/css" href="/ueditor/UE/third-party/SyntaxHighlighter/shCoreDefault.css">
+                  <script type="text/javascript" src="/ueditor/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+                  <script type="text/javascript" src="/ueditor/UE/ueditor.config.js"></script>
+                  <script type="text/javascript" src="/ueditor/UE/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="/ueditor/UE/lang/zh-cn/zh-cn.js"></script>
+
+                  <div class="controls">
+                      <div class="am-form-group">
+                          <!--<label for="user-intro" class="am-u-sm-3 am-form-label">商品简介</label>-->
+                          <div class="am-u-sm-9">
+                              <!-- <textarea name="descr" class="" rows="10" id="user-intro" placeholder="请输入商品简介"></textarea> -->
+                              <!-- <script id="editor" type="text/plain" style="width:100%;height:500px;"></script> -->
+                              <script id="editor" name="summary" type="text/plain" style="height:500px;"></script>
+                          </div>
+                      </div>
+                  </div>
+
+                  <script type="text/javascript">
+                      var ue = UE.getEditor('editor');
+                      SyntaxHighlighter.all();
+                  </script>
                 </div>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">

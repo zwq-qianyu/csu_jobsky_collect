@@ -90,7 +90,11 @@
   													<div class="vertic clearfix">
   														<span class="clearfix">
   															<p>
-  															{{ session.summary }}
+                                  {% if session.summary == "总结待填写..." %}
+  															    {{ session.summary }}
+                                  {% else %}
+                                    <button type="button" class="btn btn-outline-info"><a href="{% url 'sessionsSummary' session.id %}" style="color:black;">总结内容查看</a></button>
+                                  {% endif %}
   															</p>
 
   														</span>

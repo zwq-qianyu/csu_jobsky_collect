@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'myadmin',
     'web',
     'common',
+    'ueditor',
 ]
 
 MIDDLEWARE = [

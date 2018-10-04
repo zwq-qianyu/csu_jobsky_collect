@@ -10,15 +10,19 @@ from common.models import Users
 # ==============前台会员登录====================
 def login(request):
     '''会员登录表单'''
+    try:
+        # 如果登录过了，直接跳转到个人信息页
+        if request.session['volunteers']:
+            return redirect(reverse('volunteers_info'))
+    except Exception as err:
+        print(err)
     return render(request,'web/login.html')
 
 def dologin(request):
     '''会员执行登录'''
     # 校验验证码
     verifycode = request.session['verifycode']
-    print(verifycode)
     code = request.POST['code']
-    print(code)
     if verifycode != code:
         context = {'info':'验证码错误！'}
         return render(request,"web/login.html",context)

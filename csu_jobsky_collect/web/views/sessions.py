@@ -111,16 +111,24 @@ def sessionsUpdate(request):
     print(request.POST['id'])
     try:
         session = Sessions.objects.get(id=request.POST['id'])
-        session.uid = request.POST['uid']
         session.enterprise = request.POST['enterprise']
         session.start_time = request.POST['start_time']
         session.place = request.POST['place']
-        session.volunteer = request.POST['volunteer']
         session.summary = request.POST['summary']
-        session.qr_imgname = request.POST['qr_imgname']
         session.save()
         context = {"info":"修改成功！"}
     except Exception as e:
         print(e)
         context = {"info":"修改失败！"}
     return render(request,"web/sessions/info.html",context)
+
+
+def sessionsSummary(request,sid):
+    try:
+        ob = Sessions.objects.get(id=sid)
+        context={"session":ob}
+        return render(request,"web/sessions/summary.html",context)
+    except Exception as e:
+        print(e)
+        context = {"info":"没有找到总结内容！"}
+        return render(request,"web/sessions/info.html",context)

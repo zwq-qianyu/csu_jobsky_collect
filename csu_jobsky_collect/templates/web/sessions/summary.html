@@ -1,0 +1,83 @@
+{% extends "web/base.html" %}
+{% load static from staticfiles %}
+
+{% block mylink %}
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
+  <!-- 日期时间插件 flatpickr.js -->
+	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+	<!-- 日期时间插件 flatpickr.js 结束 -->
+	<style media="screen">
+		.form{
+			width: 70%;
+		}
+		h3{
+			margin-top: 50px;
+			margin-bottom: 60px;
+		}
+		.btn{
+			margin: 25px;
+		}
+	</style>
+  <!-- 自定义样式 -->
+  <style type="text/css">
+			tr th{
+				text-align: center;
+			}
+			tr td{
+				text-align: center;
+			}
+  </style>
+{% endblock %}
+
+{% block mainbody %}
+<div class="mainbody order">
+  <div class="container">
+    <!-- 面包屑导航 -->
+    <div class="crumbs col-xs-12 col-sm-12">
+      <ol class="breadcrumb">
+        <li class="hidden-xs hidden-sm"><a href="{% url 'enterprises' 1 %}">首页</a></li>
+        <li class="hidden-xs hidden-sm"><a href="{% url 'volunteers_sessions' 1 %}">招聘会</a></li>
+        <li class="active">修改招聘会</li>
+      </ol>
+    </div><!-- 面包屑导航 E-->
+
+    <div class="main clearfix">
+        <!-- 左侧导航 -->
+        <div class="left-nav f-fl col-md-4 hidden-xs hidden-sm">
+            <div class="nav-main">
+                <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 招聘会</a>
+                <a href="{% url 'volunteers_sessions' 1 %}" class="ml active" >我的招聘会</a>
+                <a href="{% url 'ssessionsAdd' %}" class="ml " >添加招聘会</a>
+                <a href="{% url 'sessions' 1 %}" class="ml " >所有招聘会</a>
+                <a href="javascript:;" class="type-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 个人中心</a>
+                <a href="{% url 'volunteers_info' %}" class="ml " >浏览信息</a>
+                <a href="{% url 'volunteers_edit' %}" class="ml " >修改信息</a>
+                <a href="{% url 'volunteers_resetpass' %}" class="ml " >重置密码</a>
+                <a href="#" class="ml " >我的收藏</a>
+                <a href="#" class="ml " >消息提醒</a>
+                <a href="#" class="ml " >建议反馈</a>
+            </div>
+        </div><!-- 左侧导航 E-->
+
+        <!-- 右侧内容展示 -->
+        <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
+            <!-- 主体开始 -->
+            <center>
+              <h3>{{session.id}}号招聘会总结内容</h3>
+              <br>
+              {{ session.summary|safe }}
+              <br>
+            </center>
+	          <!-- 主体结束 -->
+        </div>
+    </div>
+  </div>
+</div>
+<!-- 初始化  日期时间插件 flatpickr.js -->
+<script type="text/javascript">
+  $(".mycalendar").flatpickr();
+</script>
+<!-- 主内容区域 E-->
+{% endblock %}

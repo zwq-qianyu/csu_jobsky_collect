@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^myadmin/', include('myadmin.urls')),
     url(r'^', include('web.urls')),
+    url(r'^ueditor/', include('ueditor.urls')),
 ]
