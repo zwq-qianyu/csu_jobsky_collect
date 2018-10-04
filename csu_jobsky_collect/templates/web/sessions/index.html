@@ -68,7 +68,7 @@
             <br>
             <form class="form-inline" action="{% url 'sessions' 1 %}" method="get">
               <label>关键字：</label>
-              <input type="text" name="keyword" value="{{request.GET.keyword}}" class="form-control input-small" placeholder="志愿者或企业">
+              <input type="text" name="keywords" value="{{request.GET.keywords}}" class="form-control input-small" placeholder="志愿者或企业">
               <button type="submit" class="btn btn-default">搜索</button>
               <a href="{% url 'sessions' 1 %}" class="btn btn-default" role="button">全部</a>
             </form>

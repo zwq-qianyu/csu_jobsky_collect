@@ -2,6 +2,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from common.models import Sessions,Enterprises
+from django.db.models import Q
 import time,os
 from MyQR import myqr
 
@@ -22,23 +23,36 @@ def index(request):
 
 def sessions(request,pIndex):
     #获取招聘会信息
-    lists = Sessions.objects.all()
+    mod = Sessions.objects
+    mywhere=[] #定义一个用于存放搜索条件列表
+    # 获取、判断并封装 volunteer 和 enterprise 搜索
+    kw = request.GET.get("keywords",None)
+    if kw:
+        # 查询用户账号中只要含有关键字的都可以
+        lists = mod.filter(Q(enterprise__contains=kw)|Q(volunteer__contains=kw))
+        mywhere.append("keywords="+kw)
+    else:
+        lists = mod.filter()
+
+    # lists = Sessions.objects.all()
     #遍历订单信息，查询对应的详情信息
     for se in lists:
         enlist = Enterprises.objects.filter(session_id=se.id)
-        #遍历订单详情，并且获取对应的企业信息（图片）
-        # for og in enlist:
-        #     og.picname = Goods.objects.only("picname").get(id=og.goodsid).picname
         se.detaillist = enlist
 
-    # context['sessionslist'] = lists
+    print(lists)
     #分页封装信息
-    p = Paginator(lists,10)
-    if pIndex == "":
-        pIndex="1"
-    list2 = p.page(pIndex)
-    plist = p.page_range
-    context = {"sessionslist":list2,"plist":plist,"pIndex":int(pIndex)}
+    pIndex = int(pIndex)
+    page = Paginator(lists,10) #以10条每页创建分页对象
+    maxpages = page.num_pages #最大页数
+    #判断页数是否越界
+    if pIndex > maxpages:
+        pIndex = maxpages
+    if pIndex < 1:
+        pIndex = 1
+    list2 = page.page(pIndex) #当前页数据
+    plist = page.page_range   #页码数列表
+    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex,'maxpages':maxpages,'mywhere':mywhere}
     return render(request,"web/sessions/index.html",context)
 
 
