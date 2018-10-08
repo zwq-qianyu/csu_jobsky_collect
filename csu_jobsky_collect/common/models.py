@@ -29,6 +29,8 @@ class Sessions(models.Model):
     volunteer = models.CharField(max_length=32)
     summary = models.TextField(default="总结待填写...")
     qr_imgname = models.CharField(max_length=255)
+    person_number = models.IntegerField()
+    article = models.CharField(max_length=100)
 
     class Meta:
         db_table = "session"

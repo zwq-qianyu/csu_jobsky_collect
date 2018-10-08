@@ -130,6 +130,8 @@ def sessionsUpdate(request):
         session.start_time = request.POST['start_time']
         session.place = request.POST['place']
         session.summary = request.POST['summary']
+        session.person_number = request.POST['person_number']
+        session.article = request.POST['article']
         session.save()
         context = {"info":"修改成功！"}
     except Exception as e:

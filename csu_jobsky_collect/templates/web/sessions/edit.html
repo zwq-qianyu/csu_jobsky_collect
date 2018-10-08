@@ -5,8 +5,10 @@
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'web/css/order-app.css' %}">
   <!-- 日期时间插件 flatpickr.js -->
-	<link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
-	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script>
+  <link rel="stylesheet" href="{% static 'web/flatpickr/flatpickr.min.css' %}">
+  <script src="{% static 'web/flatpickr/flatpickr.min.js' %}" charset="utf-8"></script>
+	<!-- <link href="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/flatpickr/4.5.0/flatpickr.min.js"></script> -->
 	<!-- 日期时间插件 flatpickr.js 结束 -->
 	<style media="screen">
 		.form{
@@ -87,6 +89,28 @@
                   <label for="inputStartTime" class="col-sm-2 control-label">开始时间</label>
                   <div class="col-sm-6">
                     <input class="flatpickr mycalendar form-control" id="inputStartTime" name="start_time" data-enable-time="true" data-time_24hr="true" value="{{session.start_time}}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPersonNumber" class="col-sm-2 control-label">到场人数</label>
+                  <div class="col-sm-6">
+                    <input class="form-control" id="inputPersonNumber" name="person_number" data-enable-time="true" 
+                    {% if session.person_number is not null %}
+                      value="{{session.person_number}}"
+                    {% else %}
+                      placeholder="到场人数"
+                    {% endif %}>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputArticle" class="col-sm-2 control-label">文章链接</label>
+                  <div class="col-sm-6">
+                    <input class="form-control" id="inputArticle" name="article"
+                    {% if session.article is not null %}
+                      value="{{session.article}}"
+                    {% else %}
+                      placeholder="文章链接"
+                    {% endif %}>
                   </div>
                 </div>
                 <div class="form-group">
