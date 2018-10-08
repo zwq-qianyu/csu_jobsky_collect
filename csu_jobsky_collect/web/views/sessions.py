@@ -73,6 +73,7 @@ def sessionsInsert(request):
         session.start_time = request.POST['start_time']
         session.place = request.POST['place']
         session.volunteer = request.POST['volunteer']
+        session.person_number = 0
         if session.qr_imgname:
             session.qr_imgname = request.POST['qr_imgname']
         session.save()
