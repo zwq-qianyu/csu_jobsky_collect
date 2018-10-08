@@ -126,6 +126,8 @@
 						<th>宣讲场地</th>
 						<th>联系人</th>
 						<th>联系方式</th>
+						<th>到场人数</th>
+						<th>文章链接</th>
 						<!-- <th>操  作</th> -->
 					</tr>
 					{% for enterprise in enterpriseslist %}
@@ -136,6 +138,8 @@
 								<td>{{detail.place}}</td>
 								<td>{{enterprise.contacts}}</td>
 								<td>{{enterprise.phone}}</td>
+								<td>{{detail.person_number}}</td>
+								<td>{{detail.article}}</td>
 							</tr>
 						{% endfor %}
 					{% endfor %}

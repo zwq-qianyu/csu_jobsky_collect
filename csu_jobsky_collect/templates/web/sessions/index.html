@@ -83,6 +83,8 @@
                     <th>时间</th>
                     <th>联系人</th>
                     <th>联系方式</th>
+                    <th>到场人数</th>
+                    <th>文章链接</th>
                     <!-- <th>操作</th> -->
                   </tr>
                 </thead>
@@ -110,6 +112,20 @@
                         {% endif %}
                       </td>
                       {% endfor %}
+                      <td>
+                        {% if session.person_number %}
+                          {{ session.person_number }}
+                        {% else %}
+                          <!-- 待填 -->
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if session.article %}
+                          {{ session.article }}
+                        {% else %}
+                          <!-- 待填 -->
+                        {% endif %}
+                      </td>
                       <!-- <td>
                           <a href="{% url 'sessionsEdit' session.id %}" class="btn btn-mini btn-primary">编辑</a>
                           <a href="javascript:doDel('{% url 'sessionsDelete' session.id %}');" class="btn btn-mini btn-danger">删除</a>
