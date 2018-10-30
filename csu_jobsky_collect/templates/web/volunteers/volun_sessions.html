@@ -57,7 +57,7 @@
                   <ul class="clearfix">
                     <li class="w50">
                         <select id="checkType" class="check-type">
-                            <option value="0">近三个月招聘会</option>
+                            <!-- <option value="0">近三个月招聘会</option> -->
                             <option value="1">全部招聘会</option>
                         </select>
                         志愿者总结信息
@@ -100,7 +100,7 @@
                                   {% if session.summary == "总结待填写..." %}
   															    {{ session.summary }}
                                   {% else %}
-                                    <button type="button" class="btn btn-outline-info"><a href="{% url 'sessionsSummary' session.id %}" style="color:black;">总结内容查看</a></button>
+                                    <button type="button" class="btn btn-info btn-outline-info"><a href="{% url 'sessionsSummary' session.id %}" style="color:black;">总结内容查看</a></button>
                                   {% endif %}
   															</p>
 
