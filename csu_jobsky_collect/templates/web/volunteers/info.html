@@ -50,7 +50,7 @@
         <div class="right-content f-fr col-md-8 col-xs-12 col-sm-12">
             <!-- 主体开始 -->
             <hr>
-            <form id="edit-profile" action="{% url 'volunteers_update' %}" class="form-horizontal" method="post">
+            <form id="edit-profile" action="{% url 'volunteers_update' %}" class="form-horizontal col-xs-6 col-xs-offset-3" method="post">
                 {% csrf_token %}
                 <fieldset>
                     <div style="margin-left: 100px;">
