@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^login$', index.login, name="login"),
     url(r'^dologin$', index.dologin, name="dologin"),
     url(r'^logout$', index.logout, name="logout"),
+    url(r'^verify$', index.verify, name="myadmin_verify"), #验证码
 
     # 志愿者注册路由
     url(r'^register$', index.register, name="register"),
