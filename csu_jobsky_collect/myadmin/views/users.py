@@ -40,16 +40,26 @@ def index(request,pIndex):
     list2 = page.page(pIndex) #当前页数据
     plist = page.page_range   #页码数列表
 
-    context = {"userslist":list2,'plist':plist,'pIndex':pIndex,'maxpages':maxpages,'mywhere':mywhere}
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
+    context = {"userslist":list2,'plist':plist,'pIndex':pIndex,'maxpages':maxpages,'mywhere':mywhere,"state":user.state}
     return render(request,"myadmin/users/index.html",context)
 
 
 def add(request):
     '''加载添加页面'''
-    return render(request,"myadmin/users/add.html")
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+    context = {"state":user.state}
+
+    return render(request,"myadmin/users/add.html",context)
 
 def insert(request):
     '''执行添加'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users()
         ob.username = request.POST['username']
@@ -66,39 +76,48 @@ def insert(request):
         ob.state = 1
         ob.addtime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         ob.save()
-        context={"info":"添加成功！"}
+        context={"info":"添加成功！","state":user.state}
     except Exception as err:
         print(err)
-        context={"info":"添加失败"}
+        context={"info":"添加失败","state":user.state}
     return render(request,"myadmin/info.html",context)
 
 def delete(request,uid):
     '''删除信息'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users.objects.get(id=uid)
         ob.delete()
-        context={"info":"删除成功！"}
+        context={"info":"删除成功！","state":user.state}
     except Exception as err:
         print(err)
-        context={"info":"删除失败"}
+        context={"info":"删除失败","state":user.state}
     return render(request,"myadmin/info.html",context)
 
 
 def edit(request,uid):
     '''加载编辑信息页面'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users.objects.get(id=uid)
-        context={"user":ob}
+        context={"user":ob,"state":user.state}
         return render(request,"myadmin/users/edit.html",context)
     except Exception as err:
-        context={"info":"没有找到要修改的信息！"}
+        context={"info":"没有找到要修改的信息！","state":user.state}
         return render(request,"myadmin/info.html",context)
 
 def update(request,uid):
     '''执行编辑信息'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users.objects.get(id=uid)
-        ob.username = request.POST['username']
+        # ob.username = request.POST['username']
         ob.name = request.POST['name']
         ob.sex = request.POST['sex']
         ob.phone = request.POST['phone']
@@ -106,24 +125,30 @@ def update(request,uid):
         ob.student_id = request.POST['student_id']
         ob.state = request.POST['state']
         ob.save()
-        context={"info":"修改成功！"}
+        context={"info":"修改成功！","state":user.state}
     except Exception as err:
         print(err)
-        context={"info":"修改失败"}
+        context={"info":"修改失败","state":user.state}
     return render(request,"myadmin/info.html",context)
 
 def editpasswd(request,uid):
     '''加载重置会员密码页面'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users.objects.get(id=uid)
-        context={"user":ob}
+        context={"user":ob,"state":user.state}
         return render(request,"myadmin/users/editpasswd.html",context)
     except Exception as err:
-        context={"info":"没有找到要修改的信息！"}
+        context={"info":"没有找到要修改的信息！","state":user.state}
         return render(request,"myadmin/info.html",context)
 
 def changepasswd(request,uid):
     '''重置会员密码信息'''
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
     try:
         ob = Users.objects.get(id=uid)
         #获取密码并md5
@@ -132,8 +157,8 @@ def changepasswd(request,uid):
         m.update(bytes(request.POST['password'],encoding="utf8"))
         ob.password = m.hexdigest()
         ob.save()
-        context={"info":"修改成功！"}
+        context={"info":"修改成功！","state":user.state}
     except Exception as err:
         print(err)
-        context={"info":"修改失败"}
+        context={"info":"修改失败","state":user.state}
     return render(request,"myadmin/info.html",context)

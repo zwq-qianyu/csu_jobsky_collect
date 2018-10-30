@@ -1,0 +1,11 @@
+.select_area {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0 20px 0;
+}
+
+#edit-profile button {
+  margin: 10px 30px;;
+}
