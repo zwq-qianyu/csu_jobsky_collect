@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
-from common.models import Sessions,Enterprises
+from common.models import Sessions,Enterprises,Users
 from django.db.models import Q
 import time,os
 from MyQR import myqr
@@ -53,12 +53,19 @@ def sessions(request,pIndex):
         pIndex = 1
     list2 = page.page(pIndex) #当前页数据
     plist = page.page_range   #页码数列表
-    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex,'maxpages':maxpages,'mywhere':mywhere}
+
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
+    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex,'maxpages':maxpages,'mywhere':mywhere,"state":user.state}
     return render(request,"web/sessions/index.html",context)
 
 
 def sessionsAdd(request):
-    context = {"uid":request.session['volunteers']['id'],"volunteer":request.session['volunteers']['name']}
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
+    context = {"uid":request.session['volunteers']['id'],"volunteer":request.session['volunteers']['name'],"state":user.state}
     #加载添加表单
     return render(request,"web/sessions/add.html",context)
 
@@ -66,6 +73,9 @@ def sessionsAdd(request):
 def sessionsInsert(request):
     '''执行招聘会信息的上传插入'''
     try:
+        #根据账号获取登录者信息
+        user = Users.objects.get(id=request.session['volunteers']['id'])
+
         # 创建招聘会信息
         session = Sessions()
         session.uid = request.POST['uid']
@@ -90,42 +100,50 @@ def sessionsInsert(request):
         generate_qr(site_name, qr_imgname, destination)
         session.qr_imgname = qr_imgname
         session.save()
-        context = {"info":"招聘会添加成功！"}
+        context = {"info":"招聘会添加成功！","state":user.state}
     except Exception as e:
         print(e)
-        context = {"info":"添加失败！"}
+        context = {"info":"添加失败！","state":user.state}
 
     return render(request,"./web/sessions/info.html",context)
 
 
 def sessionsDelete(request,sid):
     try:
+        #根据账号获取登录者信息
+        user = Users.objects.get(id=request.session['volunteers']['id'])
+
         #找到对应的招聘会对象
         sob = Sessions.objects.get(id=sid)
         sob.delete()
         eob = Enterprises.objects.get(session_id=sid)
         eob.delete()
-        context = {"info":"删除成功！"}
+        context = {"info":"删除成功！","state":user.state}
     except Exception as e:
         print(e)
-        context = {"info":"删除失败！"}
+        context = {"info":"删除失败！","state":user.state}
     return render(request,"./web/sessions/info.html",context)
 
 
 def sessionsEdit(request,sid):
     try:
+        #根据账号获取登录者信息
+        user = Users.objects.get(id=request.session['volunteers']['id'])
         ob = Sessions.objects.get(id=sid)
-        context={"session":ob}
+        context={"session":ob,"state":user.state}
         return render(request,"web/sessions/edit.html",context)
     except Exception as e:
         print(e)
-        context = {"info":"没有找到要修改的信息！"}
+        context = {"info":"没有找到要修改的信息！","state":user.state}
         return render(request,"web/sessions/info.html",context)
 
 
 def sessionsUpdate(request):
     print(request.POST['id'])
     try:
+        #根据账号获取登录者信息
+        user = Users.objects.get(id=request.session['volunteers']['id'])
+
         session = Sessions.objects.get(id=request.POST['id'])
         session.enterprise = request.POST['enterprise']
         session.start_time = request.POST['start_time']
@@ -134,19 +152,21 @@ def sessionsUpdate(request):
         session.person_number = request.POST['person_number']
         session.article = request.POST['article']
         session.save()
-        context = {"info":"修改成功！"}
+        context = {"info":"修改成功！","state":user.state}
     except Exception as e:
         print(e)
-        context = {"info":"修改失败！"}
+        context = {"info":"修改失败！","state":user.state}
     return render(request,"web/sessions/info.html",context)
 
 
 def sessionsSummary(request,sid):
     try:
+        #根据账号获取登录者信息
+        user = Users.objects.get(id=request.session['volunteers']['id'])
         ob = Sessions.objects.get(id=sid)
-        context={"session":ob}
+        context={"session":ob,"state":user.state}
         return render(request,"web/sessions/summary.html",context)
     except Exception as e:
         print(e)
-        context = {"info":"没有找到总结内容！"}
+        context = {"info":"没有找到总结内容！","state":user.state}
         return render(request,"web/sessions/info.html",context)

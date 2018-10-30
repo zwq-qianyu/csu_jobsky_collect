@@ -41,7 +41,10 @@ def  volun_sessions(request,pIndex):
         pIndex = 1
     list2 = p.page(pIndex)
     plist = p.page_range
-    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex}
+    #根据账号获取登录者信息
+    user = Users.objects.get(id=request.session['volunteers']['id'])
+
+    context = {"sessionslist":list2,"plist":plist,"pIndex":pIndex,"state":user.state}
     return render(request,"web/volunteers/volun_sessions.html",context)
 
 def odstate(request):
@@ -65,24 +68,24 @@ def info(request):
         ob = Users.objects.get(id=request.session['volunteers']['id'])
         # print("ob:")
         # print(ob)
-        context={"volunteer":ob}
+        context={"volunteer":ob,"state":ob.state}
         print("id: "+ str(ob.id))
         return render(request,"web/volunteers/info.html",context)
     except Exception as err:
         print(err)
-        context={"info":"没有找到信息！"}
+        context={"info":"没有找到信息！","state":ob.state}
         return render(request,"web/info.html",context)
 
 def edit(request):
     '''加载编辑信息页面'''
     try:
         ob = Users.objects.get(id=request.session['volunteers']['id'])
-        context={"volunteer":ob}
+        context={"volunteer":ob,"state":ob.state}
         print("id: "+ str(ob.id))
         return render(request,"web/volunteers/edit.html",context)
     except Exception as err:
         print(err)
-        context={"info":"没有找到要修改的信息！"}
+        context={"info":"没有找到要修改的信息！","state":ob.state}
         return render(request,"web/info.html",context)
 
 def update(request):
@@ -96,22 +99,22 @@ def update(request):
         ob.email = request.POST['email']
         ob.state = 1
         ob.save()
-        context={"info":"修改成功！"}
+        context={"info":"修改成功！","state":ob.state}
     except Exception as err:
         print(err)
-        context={"info":"修改失败"}
+        context={"info":"修改失败","state":ob.state}
     return render(request,"web/info.html",context)
 
 def resetpass(request):
     '''加载重置会员密码信息页面'''
     try:
         ob = Users.objects.get(id=request.session['volunteers']['id'])
-        context={"volunteer":ob}
+        context={"volunteer":ob,"state":ob.state}
         print("id: "+ str(ob.id))
         return render(request,"web/volunteers/resetpass.html",context)
     except Exception as err:
         print(err)
-        context={"info":"没有找到要修改的信息！"}
+        context={"info":"没有找到要修改的信息！","state":ob.state}
         return render(request,"web/info.html",context)
 
 def doresetpass(request):
@@ -128,5 +131,5 @@ def doresetpass(request):
         return render(request,"web/login.html")
     except Exception as err:
         print(err)
-        context={"info":"密码重置失败"}
+        context={"info":"密码重置失败","state":ob.state}
         return render(request,"web/info.html",context)
